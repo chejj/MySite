@@ -1,0 +1,36 @@
+---
+title: "Jacob Anderson"
+about:
+  id: hero-heading
+  template: trestles
+  image: images/CollegeGradJake.jpeg
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/chejj/
+    - icon: linkedin
+      text: Linkedin
+      href: https://www.linkedin.com/in/jacob-anderson-a33b551b0/
+---
+:::{#hero-heading}
+
+I'm a Data Scientist at TD Williamson. When I'm not developing data solutions, I enjoy traveling with my wife and playing board games with friends.
+
+## Experience
+
+TD Williamson | Data Scientist | June 2024 - Present
+
+Lumea | Integrations Manager | June 2022 - Mar 2024
+
+Lumea | Integrations Engineer | Jan 2022 - June 2022
+
+Lumea | Customer Support Representative | Feb 2021 - December 2021
+
+NuSkin | Tech Support Spanish Language | Nov 2017 - December 2020
+
+## Education
+
+Brigham Young University | B.S. Applied Statistical Science and Analytics
+
+Arizona State University | M.S. Biological Data Science
+

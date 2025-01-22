@@ -1,0 +1,107 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Jacob Anderson",
+    "section": "",
+    "text": "Github\n  \n  \n    \n     Linkedin\n  \n\n  \n  \nI’m a Data Scientist at TD Williamson. When I’m not developing data solutions, I enjoy traveling with my wife and playing board games with friends.\n\n\nTD Williamson | Data Scientist | June 2024 - Present\nLumea | Integrations Manager | June 2022 - Feb 2024\nLumea | Integrations Engineer | Feb 2021 - June 2022\n\n\n\nBrigham Young University | B.S. Applied Statistical Science and Analytics\nArizona State University | M.S. Biological Data Science"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Jacob Anderson",
+    "section": "",
+    "text": "TD Williamson | Data Scientist | June 2024 - Present\nLumea | Integrations Manager | June 2022 - Feb 2024\nLumea | Integrations Engineer | Feb 2021 - June 2022"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Jacob Anderson",
+    "section": "",
+    "text": "Brigham Young University | B.S. Applied Statistical Science and Analytics\nArizona State University | M.S. Biological Data Science"
+  },
+  {
+    "objectID": "traveling.html",
+    "href": "traveling.html",
+    "title": "Traveling",
+    "section": "",
+    "text": "Iceland\n\n\n\nCave\n\n\n\n\n\nReykjavik\n\n\n\n\nNew York\n\n\nFrance\n\n\nArgentina\n\n\nCaribbean"
+  },
+  {
+    "objectID": "leagueoflegends.html",
+    "href": "leagueoflegends.html",
+    "title": "League of Legends",
+    "section": "",
+    "text": "League"
+  },
+  {
+    "objectID": "marioparty.html",
+    "href": "marioparty.html",
+    "title": "Mario Party",
+    "section": "",
+    "text": "Show code\nimport pandas as pd\ndata = pd.read_csv(\"data/marioparty.csv\")"
+  },
+  {
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Jacob Anderson",
+    "section": "",
+    "text": "Github\n  \n  \n    \n     Linkedin\n  \n\n  \n  \nI’m a Data Scientist at TD Williamson. When I’m not developing data solutions, I enjoy traveling with my wife and playing board games with friends.\n\n\nTD Williamson | Data Scientist | June 2024 - Present\nLumea | Integrations Manager | June 2022 - Feb 2024\nLumea | Integrations Engineer | Feb 2021 - June 2022\n\n\n\nBrigham Young University | B.S. Applied Statistical Science and Analytics\nArizona State University | M.S. Biological Data Science"
+  },
+  {
+    "objectID": "projects/index.html#experience",
+    "href": "projects/index.html#experience",
+    "title": "Jacob Anderson",
+    "section": "",
+    "text": "TD Williamson | Data Scientist | June 2024 - Present\nLumea | Integrations Manager | June 2022 - Feb 2024\nLumea | Integrations Engineer | Feb 2021 - June 2022"
+  },
+  {
+    "objectID": "projects/index.html#education",
+    "href": "projects/index.html#education",
+    "title": "Jacob Anderson",
+    "section": "",
+    "text": "Brigham Young University | B.S. Applied Statistical Science and Analytics\nArizona State University | M.S. Biological Data Science"
+  },
+  {
+    "objectID": "projects/marioparty.html",
+    "href": "projects/marioparty.html",
+    "title": "Mario Party",
+    "section": "",
+    "text": "Mario Party"
+  },
+  {
+    "objectID": "projects/leagueoflegends.html",
+    "href": "projects/leagueoflegends.html",
+    "title": "League of Legends",
+    "section": "",
+    "text": "League"
+  },
+  {
+    "objectID": "mario/index.html",
+    "href": "mario/index.html",
+    "title": "Mario Party",
+    "section": "",
+    "text": "Introduction and Findings\nIn Mario Party Jamboree, players roll a 10-sided die to determine how far they will travel on their turn. A player can also hold the A button to spin the die faster, also referred as “charging”. The two questions we are going to explore are:\n\nAre the dice fair (Can it be modeled with a uniform distribution)?\n\nAs far as we can tell, the die are fair and a player has an even chance of rolling any number.\n\nDoes holding the A button make you roll higher?\n\nHolding the A button does not have a statistically significant effect on roll outcomes.\n\n\n\n\nShow code\nimport pandas as pd\nimport matplotlib.pyplot as plt\ndata = pd.read_csv(\"../data/marioparty.csv\")\n\n\n\n\nSampling\nIn order to answer these questions, I played a 30 turn game of Mario Party with my wife with each of us holding the A buttons, while the NPC’s (Non Player Characters) don’t charge. In total I collected 125 samples, with 59 being charged rolls and 66 uncharged.\n\n\n\nCharged\nUncharged\nTotal\n\n\n\n\n59\n66\n125\n\n\n\n\n\nAre the Dice Fair?\n\n\nShow code\nplt.hist(data['Number'], bins=10, color='lightpink')\nplt.title('Histogram of Rolls')\nplt.ylabel('Frequency')\nplt.xlabel('Dice Roll')\nplt.show()\n\n\n\n\n\n\n\n\n\nThe rolls have a pretty strong positive-skew with the mode at 1, but otherwise appears fairly uniform. To analyze, I’ll perform a Chi-Squared Goodness of Fit Test to see whether or not the observed data fits a uniform distribution.\n\\[\nH_0: \\text {The dice follow a uniform distribution}\n\\]\n\\[\nH_a: \\text {The dice do not follow a uniform distributin}\n\\]\n\n\nShow code\nfrom scipy.stats import chisquare\nimport numpy as np\n\n# Number of faces on the die\nn_faces = 10\nobserved_freq, bin_edges = np.histogram(data['Number'], bins=n_faces)\n\ntotal_count = len(data['Number'])\nexpected_freq = np.full(n_faces, total_count / n_faces)\n\nchi2_stat, p_value = chisquare(f_obs=observed_freq, f_exp=expected_freq)\n\nprint(f\"Chi-Squared Statistic: {chi2_stat:.2f}\")\nprint(f\"P-Value: {p_value:.2f}\")\n\nif p_value &gt; 0.05:\n    print(\"Fail to reject the null hypothesis: Insufficient evidence to suggest that the dice follow a uniform distribution.\")\nelse:\n    print(\"Reject the null hypothesis: The dice do not follow a uniform distribution.\")\n\n\nChi-Squared Statistic: 10.28\nP-Value: 0.33\nFail to reject the null hypothesis: Insufficient evidence to suggest that the dice follow a uniform distribution.\n\n\n\n\nDoes Holding the A button make you roll higher?\nIn order to determine whether or not there is a significant difference, I played a 30 turn game and collected a sample of 66 uncharged rolls and 59 charged rolls (125 total).\n\\[\nH_0: \\mu_{chargedDie} = \\mu_{unchargedDie}\n\\]\n\\[\nH_a: \\mu_{chargedDie} &gt; \\mu_{unchargedDie}\n\\]\n\n\nShow code\ncharged_rolls = data[data['Charged?'] == 'Yes']['Number']\nuncharged_rolls = data[data['Charged?'] == 'No']['Number']\n\nfig, axes = plt.subplots(1, 2, figsize=(12, 6))\n\naxes[0].hist(charged_rolls, alpha=0.5, bins=10, color='red', label='Charged Rolls')\naxes[0].set_title(f'Charged Rolls, mean={charged_rolls.mean():.2f}')\naxes[0].set_xlabel('Roll Values')\naxes[0].set_ylabel('Frequency')\n\naxes[1].hist(uncharged_rolls, alpha=0.5, bins=10, color='green', label='Uncharged Rolls')\naxes[1].set_title(f'Uncharged Rolls, mean={uncharged_rolls.mean():.2f}')\naxes[1].set_xlabel('Roll Values')\naxes[1].set_ylabel('Frequency')\n\nplt.show()\n\n\n\n\n\n\n\n\n\nThe distributions appear fairly similar, and charged_rolls has a lower mean (4.97 vs 5.59) which makes me immediately doubt the alternate hypothesis, but I’ll continue with two tests, a Kolmogorov-Smirnov (K-S) test to determine whether the charged_rolls and uncharged_rolls are significantly different and Bootstrap Sampling difference of means between the two distributions and calculating a confidence interval.\n\nKolmogorov-Smirnov Test\nThe K-S Test is used here to compare the two distributions and test whether or not they come from the same underlying distribution.\n\n\nShow code\nfrom scipy.stats import ks_2samp\n\nks_statistic, p_value = ks_2samp(charged_rolls, uncharged_rolls)\n\nprint(f'K-S Statistic: {ks_statistic:.2f}')\nprint(f'P-value: {p_value:.2f}')\n\nif p_value &lt; 0.05:\n    print(\"The distributions are significantly different.\")\nelse:\n    print(\"The distributions are not significantly different.\")\n\n\nK-S Statistic: 0.13\nP-value: 0.63\nThe distributions are not significantly different.\n\n\n\n\nBootstrap Sampling\nFor our Bootstrap Sample we are going to:\n\nSample both charged_rolls and uncharged_rolls with replacement to create a new sample the same size as the original.\nFrom this we are going to take the mean of charged_rolls and uncharged_rolls\nCompute the difference between the mean of the bootstrap samples\nStore the difference\nRepeat Steps 1-4 n=10,000 times.\n\n\n\nShow code\nn = 10000\n\nmean_differences = []\n\nfor _ in range(n):\n    charged_sample = np.random.choice(charged_rolls, size=len(charged_rolls), replace=True)\n    uncharged_sample = np.random.choice(uncharged_rolls, size=len(uncharged_rolls), replace=True)\n    \n    charged_mean = np.mean(charged_sample)\n    uncharged_mean = np.mean(uncharged_sample)\n    \n    mean_differences.append(charged_mean - uncharged_mean)\n\nmean_differences = np.array(mean_differences)\n\nlower_bound = np.percentile(mean_differences, 2.5)\nupper_bound = np.percentile(mean_differences, 97.5)\n\nplt.hist(mean_differences, bins=30, alpha=0.7, color='skyblue')\nplt.title('Bootstrap Distribution of Difference in Means (Charged - Uncharged)')\nplt.xlabel('Difference in Means')\nplt.ylabel('Frequency')\n\nplt.axvline(x=lower_bound, color='red', linestyle='--', label=f'2.5% CI: {lower_bound:.2f}')\nplt.axvline(x=upper_bound, color='red', linestyle='--', label=f'97.5% CI: {upper_bound:.2f}')\n\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\nThe 95% confidence interval of our bootstrapped difference in means contains 0, (and contains mostly negative values) so we reject the null hypothesis as there is not sufficient evidence to suggest that charged dice produce higher rolls than uncharged dice."
+  },
+  {
+    "objectID": "league/index.html",
+    "href": "league/index.html",
+    "title": "League of Legends",
+    "section": "",
+    "text": "League"
+  },
+  {
+    "objectID": "traveling/index.html",
+    "href": "traveling/index.html",
+    "title": "Traveling",
+    "section": "",
+    "text": "Iceland\n\n\n\nCave\n\n\n\n\n\nReykjavik\n\n\n\n\nNew York\n\n\nFrance\n\n\nArgentina\n\n\nCaribbean"
+  }
+]

@@ -1,0 +1,167 @@
+---
+title: "Mario Party"
+format:
+  html:
+    code-fold: true
+    code-summary: "Show Code"
+---
+### Introduction and Findings
+
+In Mario Party Jamboree, players roll a 10-sided die to determine how far they will travel on their turn. A player can also hold the A button to spin the die faster, also referred as "charging". The two questions we are going to explore are:
+
+Are the dice fair (Can it be modeled with a uniform distribution)?
+: As far as we can tell, the die are fair and a player has an even chance of rolling any number.
+
+Does holding the A button make you roll higher?
+: Holding the A button does not have a statistically significant effect on roll outcomes.
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+data = pd.read_csv("marioparty.csv")
+```
+
+### Sampling
+
+In order to answer these questions, I played a 30 turn game of Mario Party with my wife with each of us holding the A buttons, while the NPC's (Non Player Characters) don't charge. In total I collected 125 samples, with 59 being charged rolls and 66 uncharged.
+
+| Charged | Uncharged | Total |
+|---------|:----------|:------|
+| 59      | 66        | 125   |
+
+
+### Are the Dice Fair?
+```{python}
+plt.hist(data['Number'], bins=10, color='lightpink')
+plt.title('Histogram of Rolls')
+plt.ylabel('Frequency')
+plt.xlabel('Dice Roll')
+plt.show()
+```
+
+The rolls have a pretty strong positive-skew with the mode at 1, but otherwise appears fairly uniform. To analyze, I'll perform a **Chi-Squared Goodness of Fit Test** to see whether or not the observed data fits a uniform distribution.
+
+$$
+H_0: \text {The dice follow a uniform distribution}
+$$
+
+$$
+H_a: \text {The dice do not follow a uniform distributin}
+$$
+
+```{python}
+from scipy.stats import chisquare
+import numpy as np
+
+# Number of faces on the die
+n_faces = 10
+observed_freq, bin_edges = np.histogram(data['Number'], bins=n_faces)
+
+total_count = len(data['Number'])
+expected_freq = np.full(n_faces, total_count / n_faces)
+
+chi2_stat, p_value = chisquare(f_obs=observed_freq, f_exp=expected_freq)
+
+print(f"Chi-Squared Statistic: {chi2_stat:.2f}")
+print(f"P-Value: {p_value:.2f}")
+
+if p_value > 0.05:
+    print("Fail to reject the null hypothesis: Insufficient evidence to suggest that the dice follow a uniform distribution.")
+else:
+    print("Reject the null hypothesis: The dice do not follow a uniform distribution.")
+
+```
+
+### Does Holding the A button make you roll higher?
+
+ In order to determine whether or not there is a significant difference, I played a 30 turn game and collected a sample of 66 uncharged rolls and 59 charged rolls (125 total).
+
+ $$
+H_0: \mu_{chargedDie} = \mu_{unchargedDie}
+$$
+
+$$
+H_a: \mu_{chargedDie} > \mu_{unchargedDie}
+$$
+
+```{python}
+charged_rolls = data[data['Charged?'] == 'Yes']['Number']
+uncharged_rolls = data[data['Charged?'] == 'No']['Number']
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+
+axes[0].hist(charged_rolls, alpha=0.5, bins=10, color='red', label='Charged Rolls')
+axes[0].set_title(f'Charged Rolls, mean={charged_rolls.mean():.2f}')
+axes[0].set_xlabel('Roll Values')
+axes[0].set_ylabel('Frequency')
+
+axes[1].hist(uncharged_rolls, alpha=0.5, bins=10, color='green', label='Uncharged Rolls')
+axes[1].set_title(f'Uncharged Rolls, mean={uncharged_rolls.mean():.2f}')
+axes[1].set_xlabel('Roll Values')
+axes[1].set_ylabel('Frequency')
+
+plt.show()
+```
+
+The distributions appear fairly similar, and charged_rolls has a lower mean (4.97 vs 5.59) which makes me immediately doubt the alternate hypothesis, but I'll continue with two tests, a Kolmogorov-Smirnov (K-S) test to determine whether the charged_rolls and uncharged_rolls are significantly different and Bootstrap Sampling difference of means between the two distributions and calculating a confidence interval.
+
+#### Kolmogorov-Smirnov Test
+
+The K-S Test is used here to compare the two distributions and test whether or not they come from the same underlying distribution.
+
+```{python}
+from scipy.stats import ks_2samp
+
+ks_statistic, p_value = ks_2samp(charged_rolls, uncharged_rolls)
+
+print(f'K-S Statistic: {ks_statistic:.2f}')
+print(f'P-value: {p_value:.2f}')
+
+if p_value < 0.05:
+    print("The distributions are significantly different.")
+else:
+    print("The distributions are not significantly different.")
+```
+
+#### Bootstrap Sampling
+
+For our Bootstrap Sample we are going to:
+
+1. Sample both charged_rolls and uncharged_rolls with replacement to create a new sample the same size as the original.
+2. From this we are going to take the mean of charged_rolls and uncharged_rolls
+3. Compute the difference between the mean of the bootstrap samples
+4. Store the difference
+5. Repeat Steps 1-4 n=10,000 times.
+
+```{python}
+n = 10000
+
+mean_differences = []
+
+for _ in range(n):
+    charged_sample = np.random.choice(charged_rolls, size=len(charged_rolls), replace=True)
+    uncharged_sample = np.random.choice(uncharged_rolls, size=len(uncharged_rolls), replace=True)
+    
+    charged_mean = np.mean(charged_sample)
+    uncharged_mean = np.mean(uncharged_sample)
+    
+    mean_differences.append(charged_mean - uncharged_mean)
+
+mean_differences = np.array(mean_differences)
+
+lower_bound = np.percentile(mean_differences, 2.5)
+upper_bound = np.percentile(mean_differences, 97.5)
+
+plt.hist(mean_differences, bins=30, alpha=0.7, color='skyblue')
+plt.title('Bootstrap Distribution of Difference in Means (Charged - Uncharged)')
+plt.xlabel('Difference in Means')
+plt.ylabel('Frequency')
+
+plt.axvline(x=lower_bound, color='red', linestyle='--', label=f'2.5% CI: {lower_bound:.2f}')
+plt.axvline(x=upper_bound, color='red', linestyle='--', label=f'97.5% CI: {upper_bound:.2f}')
+
+plt.legend()
+plt.show()
+```
+
+The 95% confidence interval of our bootstrapped difference in means contains 0, (and contains mostly negative values) so we reject the null hypothesis as there is not sufficient evidence to suggest that charged dice produce higher rolls than uncharged dice.

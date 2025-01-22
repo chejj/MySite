@@ -1,0 +1,22 @@
+project:
+  type: website
+
+website:
+  title: "Jacob Anderson"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: mario
+        text: Mario Party
+      - href: league
+        text: League of Legends
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
