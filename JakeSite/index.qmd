@@ -1,8 +1,9 @@
 ---
 title: "Jacob Anderson"
+
 about:
   id: hero-heading
-  template: trestles
+  template: broadside
   image: images/CollegeGradJake.jpeg
   links:
     - icon: github
