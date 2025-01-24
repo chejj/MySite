@@ -1,7 +1,8 @@
-/.quarto/
-/_site/
-/images/
-/league/LoL_15_Diamond.csv
-/mario/marioparty.csv
-.Rhistory
+JakeSite/.quarto/
+JakeSite/_site/
+JakeSite/images/
+JakeSite/league/LoL_15_Diamond.csv
+JakeSite/mario/marioparty.csv
+JakeSite/.Rhistory
 .DS_Store
+JakeSite/.DS_Store
