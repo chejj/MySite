@@ -12,6 +12,10 @@ format:
 
 League of Legends is a MOBA (Multiplayer Online Battle Arena) where two teams (Blue and Red) of five players compete over each other's resources and neutral objectives to destroy the enemy base (Nexus). There are three lanes; Top, Middle (Mid), and Bottom (Bot), each with defensive structures (Towers or Turrets); a jungle, filled with neutral monsters that give gold, experience and some give buffs (power-ups); a River with epic neutral objectives that provide permanent buffs (Void Grubs and Dragons) and some that provide temporary boosts to your team (Elder Dragon, Baron and Rift Herald). After the 15 minute mark, teams have the option to surrender (colloquially known as "ff" for "forfeit").
 
+### Data Collection
+
+This data was collected using the Riot Games API using two different calls. First I needed to collect a list of diamond players, which was done using the /lol/league/v4/entries/{queue}/{tier}/{division} endpoint. From the players collected I used their puuid's to ping /lol/match/v5/matches/{matchId}/timeline. This returns a minute by minute recap of the game, and I stored the data of the first 15 minutes of each game in a PostgreSQL table. 
+
 ### Content
 
 This dataset contains game metrics of the first 15 minutes of a match--games usually last between 25-35 minutes, but can surpass an hour. The data collected represents approximately 20,000 games of ranked solo queue (players can only queue up for a game with maximum one other person) from *current* Diamond Players (n.b. Patch 14.6, all games are from between March 20th and March 31st). The target value is blue_Wins (1 represents a Blue Team Victory, 0 represents a Red Team Victory)
