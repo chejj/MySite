@@ -6,6 +6,8 @@ format:
     code-summary: "Show Code"
 ---
 
+*Incomplete, please go [here](https://www.kaggle.com/datasets/jakejoeanderson/league-of-legends-diamond-matches-ff15) to see more of this project.*
+
 # Introduction
 
 League of Legends is a MOBA (Multiplayer Online Battle Arena) where two teams (Blue and Red) of five players compete over each other's resources and neutral objectives to destroy the enemy base (Nexus). There are three lanes; Top, Middle (Mid), and Bottom (Bot), each with defensive structures (Towers or Turrets); a jungle, filled with neutral monsters that give gold, experience and some give buffs (power-ups); a River with epic neutral objectives that provide permanent buffs (Void Grubs and Dragons) and some that provide temporary boosts to your team (Elder Dragon, Baron and Rift Herald). After the 15 minute mark, teams have the option to surrender (colloquially known as "ff" for "forfeit").

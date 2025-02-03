@@ -1,0 +1,34 @@
+---
+title: "Work Experience"
+---
+
+## TD Williamson
+#### Data Scientist / Software Engineer (June 2024 - Present)
+- Python, C++
+- Proposed automation for early detection of sensor failures of IDOD, DEF, and MFL tools in Python, then rewrote the model in C++ integrated them into in-house Pipeline Inspection Software for Field-Technicians.
+- Updated documentation on setting up C++ environment, and using in-house libraries.
+
+## Lumea
+#### Integrations Manager (DevOps) (June 2022 - Mar 2024)
+- Javascript, Python, Bash, PostgreSQL
+- Founded and trained team of Integration Software Engineers
+- Oversaw development of over 30 EMR/LIS Integrations
+- Oversaw migration of several services from on-premise servers to AWS
+- Setup dashboards and alerts for AWS services
+- Implemented new error tracking and fixes to reduce monthly errors by 70%
+- Created and maintained healthy team environment with 0 employee turnover
+- Weekly reports to C-Suite on project progress
+
+#### Integrations Engineer (DevOps) (Feb 2021 - June 2022)
+- Javascript, Python, Bash, PostgreSQL
+- Developed Integrations between LIS, EMR and billing services
+- Built ETL piples for HL7, XML, JSON data containing PHI
+- Managed Jira board for various teams to review Integration Status projects
+- Set up ShinyApp Dashboard for Account Managers to review Client Integration Status
+- Set up ShinyApp Dashboard for Healthcare Providers to review KPI's such as Pathology diagnosis turn-around time
+
+## NuSkin
+#### Technical Support Spanish Speaking (November 2017 - January 2021)
+- Answered phones, chatroom and emails regarding client's technical issues including device malfunction and website troubleshooting
+- Wrote reports for overall team performance for call center management
+- Rewrote Spanish email scripts

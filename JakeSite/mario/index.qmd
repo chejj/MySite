@@ -7,9 +7,9 @@ format:
 ---
 # Introduction and Findings
 
-In Mario Party Jamboree, players roll a 10-sided die to determine how far they will travel on their turn. A player can also hold the A button to spin the die faster, also referred as "charging". The two questions we are going to explore are:
+In Mario Party Jamboree, players roll a 10-sided die to determine how far they will travel on their turn. A player can also hold the A button to spin the die faster, also referred to as "charging". The two questions we are going to explore are:
 
-Are the dice fair (Can it be modeled with a uniform distribution)?
+Are the dice fair (Can they be modeled with a uniform distribution)?
 : As far as we can tell, the die are fair and a player has an even chance of rolling any number.
 
 Does holding the A button make you roll higher?
