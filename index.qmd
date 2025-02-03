@@ -4,7 +4,7 @@ title: "Jacob Anderson"
 about:
   id: hero-heading
   template: broadside
-  image: images/Lupine.jpeg
+  image: images/Lupine.png
   links:
     - icon: github
       text: Github
