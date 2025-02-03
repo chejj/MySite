@@ -6,3 +6,4 @@ mario/marioparty.csv
 .DS_Store
 .DS_Store
 .gitignore
+/.quarto/
