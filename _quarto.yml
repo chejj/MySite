@@ -6,8 +6,6 @@ website:
   title: "Jacob Anderson"
   navbar:
     left:
-      - href: work
-        text: Work Experience
       - href: mario
         text: Mario Party
       - href: league
