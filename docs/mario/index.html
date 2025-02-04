@@ -152,10 +152,6 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../work"> 
-<span class="menu-text">Work Experience</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../mario"> 
 <span class="menu-text">Mario Party</span></a>
   </li>  
@@ -232,7 +228,7 @@ As far as we can tell, the die are fair and a player has an even chance of rolli
 Holding the A button does not have a statistically significant effect on roll outcomes.
 </dd>
 </dl>
-<div id="4873ce7f" class="cell" data-execution_count="1">
+<div id="0df48493" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -265,7 +261,7 @@ Holding the A button does not have a statistically significant effect on roll ou
 </section>
 <section id="are-the-dice-fair" class="level1">
 <h1>Are the Dice Fair?</h1>
-<div id="63bb8878" class="cell" data-execution_count="2">
+<div id="f49aeea9" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bin_edges <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">12</span>)</span>
@@ -298,7 +294,7 @@ H_0: \text {The dice follow a uniform distribution}
 <p><span class="math display">\[
 H_a: \text {The dice do not follow a uniform distributin}
 \]</span></p>
-<div id="682a0610" class="cell" data-execution_count="3">
+<div id="2c67ce37" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n_faces <span class="op">=</span> <span class="dv">10</span></span>
@@ -334,7 +330,7 @@ H_0: \mu_{chargedDie} = \mu_{unchargedDie}
 <p><span class="math display">\[
 H_a: \mu_{chargedDie} &gt; \mu_{unchargedDie}
 \]</span></p>
-<div id="f7a0b6fb" class="cell" data-execution_count="4">
+<div id="5bb1ddbe" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>charged_rolls <span class="op">=</span> data[data[<span class="st">'Charged?'</span>] <span class="op">==</span> <span class="st">'Yes'</span>][<span class="st">'Number'</span>]</span>
@@ -374,7 +370,7 @@ H_a: \mu_{chargedDie} &gt; \mu_{unchargedDie}
 <section id="kolmogorov-smirnov-test" class="level3">
 <h3 class="anchored" data-anchor-id="kolmogorov-smirnov-test">Kolmogorov-Smirnov Test</h3>
 <p>The K-S Test is used here to compare the two distributions and test whether or not they come from the same underlying distribution.</p>
-<div id="8a291fd0" class="cell" data-execution_count="5">
+<div id="67864a98" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ks_2samp</span>
@@ -406,7 +402,7 @@ The distributions are not significantly different.</code></pre>
 <li>Store the difference</li>
 <li>Repeat Steps 1-4 n=10,000 times.</li>
 </ol>
-<div id="ca7f554e" class="cell" data-execution_count="6">
+<div id="fcb97898" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10000</span></span>
