@@ -68,13 +68,13 @@ Each game is unique and there should be no missing values, *match_id* can be use
 
 # Exploratory Data Analysis
 
-
 ```{python}
 import pandas as pd
 df = pd.read_csv("LoL_15_Diamond.csv")
-```
-
-
-```{python}
 df.head()
 ```
+
+```{python}
+df.info()
+```
+

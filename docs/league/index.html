@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -224,19 +224,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exploratory-data-analysis" class="level1">
 <h1>Exploratory Data Analysis</h1>
-<div id="ba60c010" class="cell" data-execution_count="1">
+<div id="97c3dac7" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"LoL_15_Diamond.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"LoL_15_Diamond.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-</div>
-<div id="f1d43a29" class="cell" data-execution_count="2">
-<details class="code-fold">
-<summary>Show Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
 
@@ -395,6 +390,110 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<div id="65fbcacd" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 21515 entries, 0 to 21514
+Data columns (total 89 columns):
+ #   Column                      Non-Null Count  Dtype  
+---  ------                      --------------  -----  
+ 0   match_id                    21515 non-null  object 
+ 1   blue_Win                    21515 non-null  float64
+ 2   blue_Wards                  21515 non-null  float64
+ 3   blue_Yellow_Wards           21515 non-null  float64
+ 4   blue_Sight_Wards            21515 non-null  float64
+ 5   blue_Blue_Wards             21515 non-null  float64
+ 6   blue_Control_Wards          21515 non-null  float64
+ 7   blue_Wards_Destroyed        21515 non-null  float64
+ 8   blue_First_Blood            21515 non-null  float64
+ 9   blue_Kills                  21515 non-null  float64
+ 10  blue_Aces                   21515 non-null  float64
+ 11  blue_Assists                21515 non-null  float64
+ 12  blue_Void_Grubs             21515 non-null  float64
+ 13  blue_Dragons                21515 non-null  float64
+ 14  blue_Cloud_Drake            21515 non-null  float64
+ 15  blue_Infernal_Drake         21515 non-null  float64
+ 16  blue_Mountain_Drake         21515 non-null  float64
+ 17  blue_Ocean_Drake            21515 non-null  float64
+ 18  blue_Chemtech_Drake         21515 non-null  float64
+ 19  blue_Hextech_Drake          21515 non-null  float64
+ 20  blue_Heralds                21515 non-null  float64
+ 21  blue_Towers_Destroyed       21515 non-null  float64
+ 22  blue_Top_Towers_Destroyed   21515 non-null  float64
+ 23  blue_Mid_Towers_Destroyed   21515 non-null  float64
+ 24  blue_Bot_Towers_Destroyed   21515 non-null  float64
+ 25  blue_Turret_Plates          21515 non-null  float64
+ 26  blue_Inhibitors             21515 non-null  float64
+ 27  blue_Top_Inhibitor          21515 non-null  float64
+ 28  blue_Mid_Inhibitor          21515 non-null  float64
+ 29  blue_Bot_Inhibitor          21515 non-null  float64
+ 30  blue_Top_Plates             21515 non-null  float64
+ 31  blue_Mid_Plates             21515 non-null  float64
+ 32  blue_Bot_Plates             21515 non-null  float64
+ 33  blue_Total_Gold             21515 non-null  float64
+ 34  blue_Total_Level            21515 non-null  float64
+ 35  blue_Avg_Level              21515 non-null  float64
+ 36  blue_Total_XP               21515 non-null  float64
+ 37  blue_Total_CS               21515 non-null  float64
+ 38  blue_Total_Jungle_Monsters  21515 non-null  float64
+ 39  blue_Gold_Diff              21515 non-null  float64
+ 40  blue_XP_Diff                21515 non-null  float64
+ 41  blue_Magic_Dmg              21515 non-null  float64
+ 42  blue_Physical_Dmg           21515 non-null  float64
+ 43  blue_True_Dmg               21515 non-null  float64
+ 44  blue_Total_Dmg              21515 non-null  float64
+ 45  red_Win                     21515 non-null  float64
+ 46  red_Wards                   21515 non-null  float64
+ 47  red_Yellow_Wards            21515 non-null  float64
+ 48  red_Sight_Wards             21515 non-null  float64
+ 49  red_Blue_Wards              21515 non-null  float64
+ 50  red_Control_Wards           21515 non-null  float64
+ 51  red_Wards_Destroyed         21515 non-null  float64
+ 52  red_First_Blood             21515 non-null  float64
+ 53  red_Kills                   21515 non-null  float64
+ 54  red_Aces                    21515 non-null  float64
+ 55  red_Assists                 21515 non-null  float64
+ 56  red_Void_Grubs              21515 non-null  float64
+ 57  red_Dragons                 21515 non-null  float64
+ 58  red_Cloud_Drake             21515 non-null  float64
+ 59  red_Infernal_Drake          21515 non-null  float64
+ 60  red_Mountain_Drake          21515 non-null  float64
+ 61  red_Ocean_Drake             21515 non-null  float64
+ 62  red_Chemtech_Drake          21515 non-null  float64
+ 63  red_Hextech_Drake           21515 non-null  float64
+ 64  red_Heralds                 21515 non-null  float64
+ 65  red_Towers_Destroyed        21515 non-null  float64
+ 66  red_Top_Towers_Destroyed    21515 non-null  float64
+ 67  red_Mid_Towers_Destroyed    21515 non-null  float64
+ 68  red_Bot_Towers_Destroyed    21515 non-null  float64
+ 69  red_Turret_Plates           21515 non-null  float64
+ 70  red_Inhibitors              21515 non-null  float64
+ 71  red_Top_Inhibitor           21515 non-null  float64
+ 72  red_Mid_Inhibitor           21515 non-null  float64
+ 73  red_Bot_Inhibitor           21515 non-null  float64
+ 74  red_Top_Plates              21515 non-null  float64
+ 75  red_Mid_Plates              21515 non-null  float64
+ 76  red_Bot_Plates              21515 non-null  float64
+ 77  red_Total_Gold              21515 non-null  float64
+ 78  red_Total_Level             21515 non-null  float64
+ 79  red_Avg_Level               21515 non-null  float64
+ 80  red_Total_XP                21515 non-null  float64
+ 81  red_Total_CS                21515 non-null  float64
+ 82  red_Total_Jungle_Monsters   21515 non-null  float64
+ 83  red_Gold_Diff               21515 non-null  float64
+ 84  red_XP_Diff                 21515 non-null  float64
+ 85  red_Magic_Dmg               21515 non-null  float64
+ 86  red_Physical_Dmg            21515 non-null  float64
+ 87  red_True_Dmg                21515 non-null  float64
+ 88  red_Total_Dmg               21515 non-null  float64
+dtypes: float64(88), object(1)
+memory usage: 14.6+ MB</code></pre>
+</div>
+</div>
 
 
 </section>
@@ -482,8 +581,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -594,7 +691,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
