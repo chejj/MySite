@@ -7,3 +7,5 @@ mario/marioparty.csv
 .DS_Store
 .gitignore
 /.quarto/
+
+**/*.quarto_ipynb

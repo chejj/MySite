@@ -1,19 +1,24 @@
 ---
-title: "Mario Party"
+title: "A Basic Exploration of Sampling with Mario Party"
 format:
   html:
     code-fold: true
     code-summary: "Show Code"
 ---
-# Introduction and Findings
 
-In Mario Party Jamboree, players roll a 10-sided die to determine how far they will travel on their turn. A player can also hold the A button to spin the die faster, also referred to as "charging". The two questions we are going to explore are:
+![](/images/mariojamboree.png){fig-align="center" width="100%"}
+
+# Introduction and Background
+
+In Mario Party Jamboree, players roll a 10-sided die to determine how far they will travel on their turn. A player can also hold the A button to spin the die faster, also referred to as "charging". After playing the game a few times I was curious as to how the randomness of the rolls worked decided to explore the question myself. The two questions we are going to explore are:
 
 Are the dice fair (Can they be modeled with a uniform distribution)?
-: As far as we can tell, the die are fair and a player has an even chance of rolling any number.
+
+:   As far as we can tell, the die are fair and a player has an even chance of rolling any number.
 
 Does holding the A button make you roll higher?
-: Holding the A button does not have a statistically significant effect on roll outcomes.
+
+:   Holding the A button does not have a statistically significant effect on roll outcomes.
 
 ```{python}
 import pandas as pd
@@ -21,18 +26,20 @@ import matplotlib.pyplot as plt
 from scipy.stats import chisquare
 import numpy as np
 data = pd.read_csv("marioparty.csv")
+
+np.random.seed(1)
 ```
 
 # Sampling
 
-In order to answer these questions, I played a 30 turn game of Mario Party with my wife with each of us holding the A buttons, while the NPC's (Non Player Characters) don't charge. In total I collected 125 samples, with 59 being charged rolls and 66 uncharged.
+In order to answer these questions, I played a few games of Mario Party with my wife with each of us holding the A buttons, while the NPC's (Non Player Characters) don't charge. In total I collected 125 samples, with 59 being charged rolls and 66 uncharged. While there are some effects in the game that control dice outcomes, these have been excluded from the samples.
 
 | Charged | Uncharged | Total |
 |---------|:----------|:------|
 | 59      | 66        | 125   |
 
-
 # Are the Dice Fair?
+
 ```{python}
 bin_edges = range(1, 12)
 
@@ -48,7 +55,7 @@ plt.xticks(bin_centers, labels=range(1, 11))
 plt.show()
 ```
 
-The rolls have a pretty strong positive-skew with the mode at 1, but otherwise appears fairly uniform. To analyze, we can perform a **Chi-Squared Goodness of Fit Test** to see whether or not the observed data fits a uniform distribution.
+The rolls have a pretty strong positive-skew with the mode at 1, but outside this peak appears uniform. To analyze, we can perform a **Chi-Squared Goodness of Fit Test** to see whether or not the observed data fits a uniform distribution.
 
 ### Chi-Squared Goodness of Fit
 
@@ -57,7 +64,7 @@ H_0: \text {The dice follow a uniform distribution}
 $$
 
 $$
-H_a: \text {The dice do not follow a uniform distributin}
+H_a: \text {The dice do not follow a uniform distribution}
 $$
 
 ```{python}
@@ -71,19 +78,15 @@ chi2_stat, p_value = chisquare(f_obs=observed_freq, f_exp=expected_freq)
 
 print(f"Chi-Squared Statistic: {chi2_stat:.2f}")
 print(f"P-Value: {p_value:.2f}")
-
-if p_value > 0.05:
-    print("Fail to reject the null hypothesis: Insufficient evidence to suggest that the dice do not follow a uniform distribution.")
-else:
-    print("Reject the null hypothesis: The dice do not follow a uniform distribution.")
-
 ```
+
+As our P-Value for our Chi-Squared Goodness of Fit test is .33, we fail to reject the null hypothesis as there is insufficient evidence to suggest that the dice do not follow a uniform distribution.
 
 # Does Holding the A button make you roll higher?
 
- In order to determine whether or not there is a significant difference, I played a 30 turn game and collected a sample of 66 uncharged rolls and 59 charged rolls (125 total).
+In order to determine whether or not there is a significant difference between holding the A button and tapping to roll, we'll analyze our sample set of 66 uncharged rolls and 59 charged rolls (125 total).
 
- $$
+$$
 H_0: \mu_{chargedDie} = \mu_{unchargedDie}
 $$
 
@@ -98,7 +101,7 @@ uncharged_rolls = data[data['Charged?'] == 'No']['Number']
 bin_edges = range(1, 12)  # Bins for values 1 through 10
 bin_centers = [i + 0.5 for i in range(1, 11)]  # Center of each bin
 
-fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+fig, axes = plt.subplots(1, 2, figsize=(8, 4))
 
 axes[0].hist(charged_rolls, alpha=0.5, bins=bin_edges, color='red', edgecolor='black', label='Charged Rolls', align='mid')
 axes[0].set_title(f'Charged Rolls, mean={charged_rolls.mean():.2f}')
@@ -118,7 +121,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-The distributions appear fairly similar, and charged_rolls has a lower mean (4.97 vs 5.59) which makes me immediately doubt the alternate hypothesis, but I'll continue with two tests, a Kolmogorov-Smirnov (K-S) test to determine whether the charged_rolls and uncharged_rolls are significantly different and Bootstrap Sampling difference of means between the two distributions and calculating a confidence interval.
+The distributions appear fairly similar, and charged_rolls has a lower mean (4.97 vs 5.59) which makes me doubt the alternate hypothesis, but I'll continue with two tests, a Kolmogorov-Smirnov (K-S) test to determine whether the charged_rolls and uncharged_rolls are significantly different and Bootstrap Sampling difference of means between the two distributions and calculating a confidence interval.
 
 ### Kolmogorov-Smirnov Test
 
@@ -131,22 +134,19 @@ ks_statistic, p_value = ks_2samp(charged_rolls, uncharged_rolls)
 
 print(f'K-S Statistic: {ks_statistic:.2f}')
 print(f'P-value: {p_value:.2f}')
-
-if p_value < 0.05:
-    print("The distributions are significantly different.")
-else:
-    print("The distributions are not significantly different.")
 ```
+
+With a p-value of 0.63 we fail to reject the null hypothesis as there is insufficient evidence to suggest that the distributions are significantly different.
 
 ### Bootstrap Sampling
 
 For our Bootstrap Sample we are going to:
 
-1. Sample both charged_rolls and uncharged_rolls with replacement to create a new sample the same size as the original.
-2. From this we are going to take the mean of charged_rolls and uncharged_rolls
-3. Compute the difference between the mean of the bootstrap samples
-4. Store the difference
-5. Repeat Steps 1-4 n=10,000 times.
+1.  Sample both charged_rolls and uncharged_rolls with replacement to create a new sample the same size as the original.
+2.  From this we are going to take the mean of charged_rolls and uncharged_rolls
+3.  Compute the difference between the mean of the bootstrap samples
+4.  Store the difference
+5.  Repeat Steps 1-4 n=10,000 times.
 
 ```{python}
 n = 10000
@@ -179,4 +179,10 @@ plt.legend()
 plt.show()
 ```
 
-The 95% confidence interval of our bootstrapped difference in means contains 0, (and contains mostly negative values) so we reject the null hypothesis as there is not sufficient evidence to suggest that charged dice produce higher rolls than uncharged dice.
+As the 95% confidence interval of our bootstrapped difference in means contains 0, we reject the null hypothesis as there is insufficient evidence to suggest that charged dice produce higher rolls than uncharged dice.
+
+# Conclusion and Limitations
+
+All three (Chi-Squared GOF, Kolmogorov-Smirnov, and Bootstrap DOF) tests performed resulted in an insignificant p-value, meaning that we did not have sufficient evidence to suggest that the the dice aren't fair or able to be modeled accurately by a uniform distribution, and that holding the A button to charge the dice does not give any advantage.
+
+To more accurately test this in the future, I could collect more samples, as well as samples from other human players as all charged samples came from humans and all uncharged samples came from NPC's (Non-Player Characters). (This was done because we didn't have extra controllers, and the NPC's don't charge dice).

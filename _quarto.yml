@@ -6,11 +6,11 @@ website:
   title: "Jacob Anderson"
   navbar:
     left:
-      - href: mario
+      - href: mario/index.qmd
         text: Mario Party
-      - href: league
+      - href: league/index.qmd
         text: League of Legends
-      - href: travel
+      - href: travel/index.qmd
         text: Travels
 
 
