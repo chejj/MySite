@@ -13,22 +13,23 @@ about:
       text: Linkedin
       href: https://www.linkedin.com/in/jacob-anderson-a33b551b0/
 ---
-:::{#hero-heading}
 
+::: {#hero-heading}
 I'm a Data Scientist based out of Utah. Whether it's NLP, Imaging, Signal Processing, Patient Data, Customer Data, Finance, etc.-- I've probably built and deployed a model for it. When I'm not delivering powerful insights to corporate overlords, you can find me at home trying (and failing) to learn a new recipe, or playing board games, but usually hanging out with my wife and our friends. Whenever possible, we love to travel.
 
 ## Experience
 
-TD Williamson | Data Scientist II | June 2024 - Present
+TD Williamson \| Data Scientist II \| June 2024 - Present
 
-ASU | Course Assistant | Aug 2025 - Present
+ASU \| Data Science / Statistics Course Assistant \| Aug 2025 - Present
 
-Lumea | Integrations Engineer / Manager | Feb 2021 - June 2024
+Lumea \| Integrations Engineer / Manager \| Feb 2021 - June 2024
 
-NuSkin | Tech Support (Spanish) | Nov 2017 - Jan 2021
+NuSkin \| Tech Support (Spanish) \| Nov 2017 - Jan 2021
 
 ## Education
 
-Brigham Young University | B.S. Applied Statistics
+Brigham Young University \| B.S. Applied Statistics
 
-Arizona State University | M.S. Biological Data Science
+Arizona State University \| M.S. Biological Data Science
+:::

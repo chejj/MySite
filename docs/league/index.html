@@ -110,6 +110,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -165,7 +194,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#content" id="toc-content" class="nav-link" data-scroll-target="#content">Content</a></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary">Glossary</a></li>
   </ul></li>
+  <li><a href="#can-you-predict-the-winning-team-at-15-minutes" id="toc-can-you-predict-the-winning-team-at-15-minutes" class="nav-link" data-scroll-target="#can-you-predict-the-winning-team-at-15-minutes">Can you Predict the Winning Team at 15 Minutes?</a>
+  <ul class="collapse">
+  <li><a href="#simplifying-the-dataset" id="toc-simplifying-the-dataset" class="nav-link" data-scroll-target="#simplifying-the-dataset">Simplifying the Dataset</a></li>
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic Regression</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -228,14 +262,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Jungle Monsters</strong>: Outside of the Lanes is the Jungle, filled with neutral monsters that grant gold, XP and some grant buffs</p>
 </section>
 </section>
-<section id="exploratory-data-analysis" class="level1">
-<h1>Exploratory Data Analysis</h1>
-<div id="261332c5" class="cell" data-execution_count="1">
+<section id="can-you-predict-the-winning-team-at-15-minutes" class="level1">
+<h1>Can you Predict the Winning Team at 15 Minutes?</h1>
+<div id="1d1dead8" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"LoL_15_Diamond.csv"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split, GridSearchCV</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, classification_report, confusion_matrix, roc_curve, roc_auc_score</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost <span class="im">as</span> xgb</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"LoL_15_Diamond.csv"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
@@ -396,112 +442,240 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="9e1d8d75" class="cell" data-execution_count="2">
+<section id="simplifying-the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="simplifying-the-dataset">Simplifying the Dataset</h3>
+<p>Rather than train a model on win/loss with blue vs red features, we are calculating differences between blues score and red score for each feature so that the model will learn from relative advantages rather than individual teams’ values. Positive values will indicate that the blue team has a higher score for that metric, and negative will indicate that the blue team has a lower score.</p>
+<div id="d8b24240" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>columns_to_keep <span class="op">=</span> [<span class="st">'blue_Win'</span>, <span class="st">'blue_Wards'</span>, <span class="st">'blue_Wards_Destroyed'</span>, <span class="st">'blue_First_Blood'</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'blue_Kills'</span>, <span class="st">'blue_Aces'</span>, <span class="st">'blue_Assists'</span>, <span class="st">'blue_Void_Grubs'</span>, <span class="st">'blue_Dragons'</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'blue_Heralds'</span>, <span class="st">'blue_Towers_Destroyed'</span>, <span class="st">'blue_Turret_Plates'</span>, <span class="st">'blue_Inhibitors'</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'blue_Total_CS'</span>, <span class="st">'blue_Total_Jungle_Monsters'</span>, <span class="st">'blue_Gold_Diff'</span>, <span class="st">'blue_XP_Diff'</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'blue_Total_Dmg'</span>, <span class="st">'red_Wards'</span>, <span class="st">'red_Wards_Destroyed'</span>, <span class="st">'red_Kills'</span>, <span class="st">'red_Aces'</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'red_Assists'</span>, <span class="st">'red_Void_Grubs'</span>, <span class="st">'red_Dragons'</span>, <span class="st">'red_Heralds'</span>, <span class="st">'red_Towers_Destroyed'</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'red_Turret_Plates'</span>, <span class="st">'red_Inhibitors'</span>, <span class="st">'red_Total_CS'</span>,<span class="st">'red_Total_Jungle_Monsters'</span>, <span class="st">'red_Total_Dmg'</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[columns_to_keep]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Ward_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Wards'</span>] <span class="op">-</span> df[<span class="st">'red_Wards'</span>]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Wards_Destroyed_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Wards_Destroyed'</span>] <span class="op">-</span> df[<span class="st">'red_Wards_Destroyed'</span>]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'First_Blood'</span>] <span class="op">=</span> df[<span class="st">'blue_First_Blood'</span>]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Ace_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Aces'</span>] <span class="op">-</span> df[<span class="st">'red_Aces'</span>]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Assist_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Assists'</span>] <span class="op">-</span> df[<span class="st">'red_Assists'</span>]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Towers_Destroyed_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Towers_Destroyed'</span>] <span class="op">-</span> df[<span class="st">'red_Towers_Destroyed'</span>]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Tower_Plates_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Turret_Plates'</span>] <span class="op">-</span> df[<span class="st">'red_Turret_Plates'</span>]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Inhibitor_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Inhibitors'</span>] <span class="op">-</span> df[<span class="st">'red_Inhibitors'</span>]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Dmg_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Total_Dmg'</span>] <span class="op">-</span> df[<span class="st">'red_Total_Dmg'</span>]</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Kill_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Kills'</span>] <span class="op">-</span> df[<span class="st">'red_Kills'</span>]</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'CS_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Total_CS'</span>] <span class="op">-</span> df[<span class="st">'red_Total_CS'</span>]</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'JG_Monster_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Total_Jungle_Monsters'</span>] <span class="op">-</span> df[<span class="st">'red_Total_Jungle_Monsters'</span>]</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Gold_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Gold_Diff'</span>]</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'XP_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_XP_Diff'</span>]</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Dragon_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Dragons'</span>] <span class="op">-</span> df[<span class="st">'red_Dragons'</span>]</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Void_Grub_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Void_Grubs'</span>] <span class="op">-</span> df[<span class="st">'red_Void_Grubs'</span>]</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Herald_Diff'</span>] <span class="op">=</span> df[<span class="st">'blue_Heralds'</span>] <span class="op">-</span> df[<span class="st">'red_Heralds'</span>]</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>df.drop(columns<span class="op">=</span>[<span class="st">'blue_Total_Dmg'</span>, <span class="st">'red_Total_Dmg'</span>, <span class="st">'blue_Kills'</span>, <span class="st">'red_Kills'</span>, <span class="st">'blue_Total_CS'</span>, <span class="st">'red_Total_CS'</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'blue_Total_Jungle_Monsters'</span>, <span class="st">'red_Total_Jungle_Monsters'</span>, <span class="st">'blue_Gold_Diff'</span>, <span class="st">'blue_XP_Diff'</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'blue_Dragons'</span>, <span class="st">'red_Dragons'</span>,<span class="st">'blue_Void_Grubs'</span>, <span class="st">'red_Void_Grubs'</span>, <span class="st">'blue_Heralds'</span>, <span class="st">'red_Heralds'</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'blue_Wards'</span>, <span class="st">'red_Wards'</span>, <span class="st">'blue_Wards_Destroyed'</span>, <span class="st">'red_Wards_Destroyed'</span>, <span class="st">'blue_First_Blood'</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'blue_Aces'</span>, <span class="st">'red_Aces'</span>, <span class="st">'blue_Assists'</span>, <span class="st">'red_Assists'</span>, <span class="st">'blue_Towers_Destroyed'</span>, <span class="st">'red_Towers_Destroyed'</span>,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'blue_Turret_Plates'</span>, <span class="st">'red_Turret_Plates'</span>, <span class="st">'blue_Inhibitors'</span>, <span class="st">'red_Inhibitors'</span>], inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="exploratory-data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h3>
+<div id="fcd1a9c3" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'blue_Win'</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to long format</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X_long <span class="op">=</span> X.melt(var_name<span class="op">=</span><span class="st">'Feature'</span>, value_name<span class="op">=</span><span class="st">'Value'</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    X_long,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"Feature"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    col_wrap<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    sharex<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    sharey<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="fl">3.5</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.2</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>, context<span class="op">=</span><span class="st">"talk"</span>)  <span class="co"># bigger fonts</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">map</span>(sns.histplot, <span class="st">"Value"</span>, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">"#4C72B0"</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>g.set_titles(<span class="st">"</span><span class="sc">{col_name}</span><span class="st">"</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>g.fig.subplots_adjust(top<span class="op">=</span><span class="fl">0.92</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>g.fig.suptitle(<span class="st">"Distribution of Predictor Variables"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" width="1578" height="1636" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From this plot we can see that Ace_Diff and Inhibitor_Diff very rarely have values other than 0, so we can drop them as they provide little to no value to our training.</p>
+<div id="076211dd" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.drop(columns<span class="op">=</span>[<span class="st">'Ace_Diff'</span>, <span class="st">'Inhibitor_Diff'</span>])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="op">=</span> X.corr()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>target_correlation <span class="op">=</span> correlation_matrix.iloc[<span class="dv">1</span>:, <span class="dv">0</span>]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>target_correlation <span class="op">=</span> target_correlation.to_frame(name<span class="op">=</span>correlation_matrix.columns[<span class="dv">0</span>])</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>target_correlation <span class="op">=</span> target_correlation.sort_values(by<span class="op">=</span>target_correlation.columns[<span class="dv">0</span>], ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>sns.heatmap(target_correlation, cmap<span class="op">=</span><span class="st">"rocket"</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'.3f'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Heatmap of Correlation Between Predictor Variables and 'blue_Win'"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" width="997" height="673" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From the heat map we can see the features with the highest correlation with ‘blue_Win’ are Gold_Diff, XP_Diff, Kill_Diff, all with a Pearson correlation coefficient (<em>r</em>) between 0.544 and 0.576, indicating some mild positive correlation.</p>
+<div id="5d1057f3" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>top_features <span class="op">=</span> target_correlation.head(<span class="dv">8</span>).index.tolist()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_top <span class="op">=</span> df[top_features]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>top_corr_matrix <span class="op">=</span> df_top.corr()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sns.heatmap(top_corr_matrix, cmap<span class="op">=</span><span class="st">"rocket"</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'.2f'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Between Top 8 Features"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-6-output-1.png" width="972" height="880" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Upon checking for multicollinearity we can see that Gold Diff has a very strong correlation with several other variables, we can check the variance inflation factor for our features and review whether to keep “Gold_Diff” (Removing if VIF (Variable Inflation Factor &gt;= 10).</p>
+<div id="1f5b5070" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'blue_Win'</span>])</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"feature"</span>] <span class="op">=</span> X.columns</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X.shape[<span class="dv">1</span>])]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data.sort_values(by<span class="op">=</span><span class="st">"VIF"</span>, ascending<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
-RangeIndex: 21515 entries, 0 to 21514
-Data columns (total 89 columns):
- #   Column                      Non-Null Count  Dtype  
----  ------                      --------------  -----  
- 0   match_id                    21515 non-null  object 
- 1   blue_Win                    21515 non-null  float64
- 2   blue_Wards                  21515 non-null  float64
- 3   blue_Yellow_Wards           21515 non-null  float64
- 4   blue_Sight_Wards            21515 non-null  float64
- 5   blue_Blue_Wards             21515 non-null  float64
- 6   blue_Control_Wards          21515 non-null  float64
- 7   blue_Wards_Destroyed        21515 non-null  float64
- 8   blue_First_Blood            21515 non-null  float64
- 9   blue_Kills                  21515 non-null  float64
- 10  blue_Aces                   21515 non-null  float64
- 11  blue_Assists                21515 non-null  float64
- 12  blue_Void_Grubs             21515 non-null  float64
- 13  blue_Dragons                21515 non-null  float64
- 14  blue_Cloud_Drake            21515 non-null  float64
- 15  blue_Infernal_Drake         21515 non-null  float64
- 16  blue_Mountain_Drake         21515 non-null  float64
- 17  blue_Ocean_Drake            21515 non-null  float64
- 18  blue_Chemtech_Drake         21515 non-null  float64
- 19  blue_Hextech_Drake          21515 non-null  float64
- 20  blue_Heralds                21515 non-null  float64
- 21  blue_Towers_Destroyed       21515 non-null  float64
- 22  blue_Top_Towers_Destroyed   21515 non-null  float64
- 23  blue_Mid_Towers_Destroyed   21515 non-null  float64
- 24  blue_Bot_Towers_Destroyed   21515 non-null  float64
- 25  blue_Turret_Plates          21515 non-null  float64
- 26  blue_Inhibitors             21515 non-null  float64
- 27  blue_Top_Inhibitor          21515 non-null  float64
- 28  blue_Mid_Inhibitor          21515 non-null  float64
- 29  blue_Bot_Inhibitor          21515 non-null  float64
- 30  blue_Top_Plates             21515 non-null  float64
- 31  blue_Mid_Plates             21515 non-null  float64
- 32  blue_Bot_Plates             21515 non-null  float64
- 33  blue_Total_Gold             21515 non-null  float64
- 34  blue_Total_Level            21515 non-null  float64
- 35  blue_Avg_Level              21515 non-null  float64
- 36  blue_Total_XP               21515 non-null  float64
- 37  blue_Total_CS               21515 non-null  float64
- 38  blue_Total_Jungle_Monsters  21515 non-null  float64
- 39  blue_Gold_Diff              21515 non-null  float64
- 40  blue_XP_Diff                21515 non-null  float64
- 41  blue_Magic_Dmg              21515 non-null  float64
- 42  blue_Physical_Dmg           21515 non-null  float64
- 43  blue_True_Dmg               21515 non-null  float64
- 44  blue_Total_Dmg              21515 non-null  float64
- 45  red_Win                     21515 non-null  float64
- 46  red_Wards                   21515 non-null  float64
- 47  red_Yellow_Wards            21515 non-null  float64
- 48  red_Sight_Wards             21515 non-null  float64
- 49  red_Blue_Wards              21515 non-null  float64
- 50  red_Control_Wards           21515 non-null  float64
- 51  red_Wards_Destroyed         21515 non-null  float64
- 52  red_First_Blood             21515 non-null  float64
- 53  red_Kills                   21515 non-null  float64
- 54  red_Aces                    21515 non-null  float64
- 55  red_Assists                 21515 non-null  float64
- 56  red_Void_Grubs              21515 non-null  float64
- 57  red_Dragons                 21515 non-null  float64
- 58  red_Cloud_Drake             21515 non-null  float64
- 59  red_Infernal_Drake          21515 non-null  float64
- 60  red_Mountain_Drake          21515 non-null  float64
- 61  red_Ocean_Drake             21515 non-null  float64
- 62  red_Chemtech_Drake          21515 non-null  float64
- 63  red_Hextech_Drake           21515 non-null  float64
- 64  red_Heralds                 21515 non-null  float64
- 65  red_Towers_Destroyed        21515 non-null  float64
- 66  red_Top_Towers_Destroyed    21515 non-null  float64
- 67  red_Mid_Towers_Destroyed    21515 non-null  float64
- 68  red_Bot_Towers_Destroyed    21515 non-null  float64
- 69  red_Turret_Plates           21515 non-null  float64
- 70  red_Inhibitors              21515 non-null  float64
- 71  red_Top_Inhibitor           21515 non-null  float64
- 72  red_Mid_Inhibitor           21515 non-null  float64
- 73  red_Bot_Inhibitor           21515 non-null  float64
- 74  red_Top_Plates              21515 non-null  float64
- 75  red_Mid_Plates              21515 non-null  float64
- 76  red_Bot_Plates              21515 non-null  float64
- 77  red_Total_Gold              21515 non-null  float64
- 78  red_Total_Level             21515 non-null  float64
- 79  red_Avg_Level               21515 non-null  float64
- 80  red_Total_XP                21515 non-null  float64
- 81  red_Total_CS                21515 non-null  float64
- 82  red_Total_Jungle_Monsters   21515 non-null  float64
- 83  red_Gold_Diff               21515 non-null  float64
- 84  red_XP_Diff                 21515 non-null  float64
- 85  red_Magic_Dmg               21515 non-null  float64
- 86  red_Physical_Dmg            21515 non-null  float64
- 87  red_True_Dmg                21515 non-null  float64
- 88  red_Total_Dmg               21515 non-null  float64
-dtypes: float64(88), object(1)
-memory usage: 14.6+ MB</code></pre>
+<pre><code>                  feature        VIF
+12              Gold_Diff  32.673758
+9               Kill_Diff  12.267481
+13                XP_Diff   7.493468
+5   Towers_Destroyed_Diff   4.558115
+4             Assist_Diff   4.192638
+10                CS_Diff   3.277680
+6       Tower_Plates_Diff   2.832249
+8                Dmg_Diff   2.651639
+11        JG_Monster_Diff   1.851032
+15         Void_Grub_Diff   1.414302
+14            Dragon_Diff   1.255242
+2             First_Blood   1.119837
+16            Herald_Diff   1.089472
+7          Inhibitor_Diff   1.045651
+1    Wards_Destroyed_Diff   1.032425
+0               Ward_Diff   1.019229
+3                Ace_Diff   1.014325</code></pre>
 </div>
+</div>
+<p>Gold_Diff has a VIF of 32.67 so we’ll remove it for the Logistic Regression dataset and review how its removal affects the VIF of the other features.</p>
+<div id="bc5c24a0" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'blue_Win'</span>, <span class="st">'Gold_Diff'</span>])</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"feature"</span>] <span class="op">=</span> X.columns</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X.shape[<span class="dv">1</span>])]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data.sort_values(by<span class="op">=</span><span class="st">"VIF"</span>, ascending<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  feature       VIF
+9               Kill_Diff  8.314954
+12                XP_Diff  6.768712
+4             Assist_Diff  3.424003
+5   Towers_Destroyed_Diff  2.902976
+8                Dmg_Diff  2.638259
+6       Tower_Plates_Diff  2.546701
+10                CS_Diff  2.513916
+11        JG_Monster_Diff  1.672491
+14         Void_Grub_Diff  1.399154
+13            Dragon_Diff  1.248454
+2             First_Blood  1.105800
+15            Herald_Diff  1.082179
+7          Inhibitor_Diff  1.045125
+1    Wards_Destroyed_Diff  1.030852
+0               Ward_Diff  1.018678
+3                Ace_Diff  1.014318</code></pre>
+</div>
+</div>
+<p>All VIF’s are now below 10 so no further features will be removed. VIF tells how much the variance of a coefficient inflated because it is correlated with other features. A feature with a very large VIF will dominate the model, cause standard errors to blow up, and other coefficients to become unstable, making them flip signs or change drastically, making the model less interpretable. The calculation for VIF is <span class="math display">\[VIF_j = 1 / (1-R^2_j)\]</span> Where <span class="math display">\[R^2_j\]</span> is from regressing feature j on all other features.</p>
+</section>
+<section id="logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-regression">Logistic Regression</h3>
+<div id="ac71f689" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># scaler = StandardScaler()</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># X_train_scaled = scaler.fit_transform(X_train)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># X_test_scaled = scaler.transform(X_test)</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic_reg = LogisticRegression(penalty='l2')</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic_reg.fit(X_train_scaled, y_train)</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># y_pred = logistic_reg.predict(X_test_scaled)</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># accuracy = accuracy_score(y_test, y_pred)</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># print(accuracy)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="46f5c83b" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># coefficients = logistic_reg.coef_[0]</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># feature_names = X.columns</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.figure(figsize=(10, 8))</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.barh(feature_names, coefficients)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.xlabel('Coefficient Value')</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.ylabel('Feature')</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.title('Logistic Regression Coefficients')</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.show()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

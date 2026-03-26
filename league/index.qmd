@@ -14,7 +14,7 @@ League of Legends is a MOBA (Multiplayer Online Battle Arena) where two teams (B
 
 ### Data Collection
 
-This data was collected using the Riot Games API using two different calls. First I needed to collect a list of diamond players, which was done using the /lol/league/v4/entries/{queue}/{tier}/{division} endpoint. From the players collected I used their puuid's to ping /lol/match/v5/matches/{matchId}/timeline. This returns a minute by minute recap of the game, and I stored the data of the first 15 minutes of each game in a PostgreSQL table. 
+This data was collected using the Riot Games API using two different calls. First I needed to collect a list of diamond players, which was done using the /lol/league/v4/entries/{queue}/{tier}/{division} endpoint. From the players collected I used their puuid's to ping /lol/match/v5/matches/{matchId}/timeline. This returns a minute by minute recap of the game, and I stored the data of the first 15 minutes of each game in a PostgreSQL table.
 
 ### Content
 
@@ -26,13 +26,13 @@ Each game is unique and there should be no missing values, *match_id* can be use
 
 **Wards**: The in game map includes Fog of War, which means players can only see what is in their immediate vicinity. Wards are totems that players can drop to temporarily or permanently gain vision in areas.
 
- 1. **Yellow Wards**: Usable after level 1, a player may have up to 3 activate at any time, can be placed up to 600 units away, last 90-120 seconds (based on average champion level) or until they are destroyed (3 HP).
+1.  **Yellow Wards**: Usable after level 1, a player may have up to 3 activate at any time, can be placed up to 600 units away, last 90-120 seconds (based on average champion level) or until they are destroyed (3 HP).
 
- 2. **Sight Wards**: Functionally the same as a Yellow Ward, usually placed by Supports (Please correct if wrong)
+2.  **Sight Wards**: Functionally the same as a Yellow Ward, usually placed by Supports (Please correct if wrong)
 
- 3. **Blue Wards**: Only usable after level 9, a player may only have 1 active at any time, can be placed up to 4000 units away, last until they are destroyed (1 HP).
+3.  **Blue Wards**: Only usable after level 9, a player may only have 1 active at any time, can be placed up to 4000 units away, last until they are destroyed (1 HP).
 
- 4. **Control Wards**: Purchasable single-use wards available from level 1, a player may only have 1 activate at any time. Reveals invisible units, last until they are destroyed (4 HP)
+4.  **Control Wards**: Purchasable single-use wards available from level 1, a player may only have 1 activate at any time. Reveals invisible units, last until they are destroyed (4 HP)
 
 **Ace**: When a team kills all members of the enemy team such that all enemy players are dead at a given moment.
 
@@ -40,13 +40,7 @@ Each game is unique and there should be no missing values, *match_id* can be use
 
 **Void Grub**: A Neutral Epic Monster that gives players an increase in damage to enemy structures (Towers/Turrets, Inhibitors) increasing for every extra Void Grub defeated. Only 3 or 6 will spawn in a game, but not all need to be or will be killed. *n.b.* if a team kills 5 or 6 Void Grubs, they will periodically summon 1 or 2 Voidmites (little alien things) that assist in destroying objects).
 
-**Dragons**: Neutral Epic Monster that grant permanent bonuses to a team. Only 3 types of non-Elder Dragons (Not included in this dataset as Elder cannot appear prior to 15 minutes) will spawn in a given game.
-1. Cloud Drake: makes players faster
-2. Infernal Drake: increases player attack damage and ability power
-3. Mountain Drake: increases player armor and magic resistance
-4. Ocean Drake: gives players extra health regeneration
-5. Chemtech Drake: grants players resistance to crowd control and extra healing and shielding
-6. Hextech Drake: increases the rate at which players can attack and use spells
+**Dragons**: Neutral Epic Monster that grant permanent bonuses to a team. Only 3 types of non-Elder Dragons (Not included in this dataset as Elder cannot appear prior to 15 minutes) will spawn in a given game. 1. Cloud Drake: makes players faster 2. Infernal Drake: increases player attack damage and ability power 3. Mountain Drake: increases player armor and magic resistance 4. Ocean Drake: gives players extra health regeneration 5. Chemtech Drake: grants players resistance to crowd control and extra healing and shielding 6. Hextech Drake: increases the rate at which players can attack and use spells
 
 **Herald**: A Neutral Objective that assists players in destroying enemy structures
 
@@ -66,15 +60,185 @@ Each game is unique and there should be no missing values, *match_id* can be use
 
 **Jungle Monsters**: Outside of the Lanes is the Jungle, filled with neutral monsters that grant gold, XP and some grant buffs
 
-# Exploratory Data Analysis
+# Can you Predict the Winning Team at 15 Minutes?
 
 ```{python}
+import numpy as np
 import pandas as pd
+import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_curve, roc_auc_score
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+import xgboost as xgb
 df = pd.read_csv("LoL_15_Diamond.csv")
 df.head()
 ```
 
+### Simplifying the Dataset
+
+Rather than train a model on win/loss with blue vs red features, we are calculating differences between blues score and red score for each feature so that the model will learn from relative advantages rather than individual teams' values. Positive values will indicate that the blue team has a higher score for that metric, and negative will indicate that the blue team has a lower score.
+
 ```{python}
-df.info()
+columns_to_keep = ['blue_Win', 'blue_Wards', 'blue_Wards_Destroyed', 'blue_First_Blood',
+                   'blue_Kills', 'blue_Aces', 'blue_Assists', 'blue_Void_Grubs', 'blue_Dragons',
+                   'blue_Heralds', 'blue_Towers_Destroyed', 'blue_Turret_Plates', 'blue_Inhibitors',
+                   'blue_Total_CS', 'blue_Total_Jungle_Monsters', 'blue_Gold_Diff', 'blue_XP_Diff',
+                   'blue_Total_Dmg', 'red_Wards', 'red_Wards_Destroyed', 'red_Kills', 'red_Aces',
+                   'red_Assists', 'red_Void_Grubs', 'red_Dragons', 'red_Heralds', 'red_Towers_Destroyed',
+                   'red_Turret_Plates', 'red_Inhibitors', 'red_Total_CS','red_Total_Jungle_Monsters', 'red_Total_Dmg']
+
+df = df[columns_to_keep]
+
+df['Ward_Diff'] = df['blue_Wards'] - df['red_Wards']
+df['Wards_Destroyed_Diff'] = df['blue_Wards_Destroyed'] - df['red_Wards_Destroyed']
+df['First_Blood'] = df['blue_First_Blood']
+df['Ace_Diff'] = df['blue_Aces'] - df['red_Aces']
+df['Assist_Diff'] = df['blue_Assists'] - df['red_Assists']
+df['Towers_Destroyed_Diff'] = df['blue_Towers_Destroyed'] - df['red_Towers_Destroyed']
+df['Tower_Plates_Diff'] = df['blue_Turret_Plates'] - df['red_Turret_Plates']
+df['Inhibitor_Diff'] = df['blue_Inhibitors'] - df['red_Inhibitors']
+
+df['Dmg_Diff'] = df['blue_Total_Dmg'] - df['red_Total_Dmg']
+df['Kill_Diff'] = df['blue_Kills'] - df['red_Kills']
+df['CS_Diff'] = df['blue_Total_CS'] - df['red_Total_CS']
+df['JG_Monster_Diff'] = df['blue_Total_Jungle_Monsters'] - df['red_Total_Jungle_Monsters']
+df['Gold_Diff'] = df['blue_Gold_Diff']
+df['XP_Diff'] = df['blue_XP_Diff']
+df['Dragon_Diff'] = df['blue_Dragons'] - df['red_Dragons']
+df['Void_Grub_Diff'] = df['blue_Void_Grubs'] - df['red_Void_Grubs']
+df['Herald_Diff'] = df['blue_Heralds'] - df['red_Heralds']
+
+df.drop(columns=['blue_Total_Dmg', 'red_Total_Dmg', 'blue_Kills', 'red_Kills', 'blue_Total_CS', 'red_Total_CS',
+                 'blue_Total_Jungle_Monsters', 'red_Total_Jungle_Monsters', 'blue_Gold_Diff', 'blue_XP_Diff',
+                 'blue_Dragons', 'red_Dragons','blue_Void_Grubs', 'red_Void_Grubs', 'blue_Heralds', 'red_Heralds',
+                 'blue_Wards', 'red_Wards', 'blue_Wards_Destroyed', 'red_Wards_Destroyed', 'blue_First_Blood',
+                 'blue_Aces', 'red_Aces', 'blue_Assists', 'red_Assists', 'blue_Towers_Destroyed', 'red_Towers_Destroyed',
+                 'blue_Turret_Plates', 'red_Turret_Plates', 'blue_Inhibitors', 'red_Inhibitors'], inplace=True)
 ```
 
+### Exploratory Data Analysis
+
+```{python}
+X = df.drop(columns=['blue_Win'])
+
+# Convert to long format
+X_long = X.melt(var_name='Feature', value_name='Value')
+
+g = sns.FacetGrid(
+    X_long,
+    col="Feature",
+    col_wrap=4,
+    sharex=False,
+    sharey=False,
+    height=3.5,
+    aspect=1.2
+)
+sns.set_theme(style="whitegrid", context="talk")  # bigger fonts
+
+g.map(sns.histplot, "Value", bins=30, color="#4C72B0", edgecolor="black")
+
+g.set_titles("{col_name}")
+g.fig.subplots_adjust(top=0.92)
+g.fig.suptitle("Distribution of Predictor Variables")
+
+plt.show()
+```
+
+From this plot we can see that Ace_Diff and Inhibitor_Diff very rarely have values other than 0, so we can drop them as they provide little to no value to our training.
+
+### JAKE FIX X and df and suchso that it makes sense
+
+```{python}
+X = X.drop(columns=['Ace_Diff', 'Inhibitor_Diff'])
+df = df.drop(columns=['Ace_Diff, Inhibitor_Diff'])
+
+correlation_matrix = df.corr()
+target_correlation = correlation_matrix.iloc[1:, 0]
+target_correlation = target_correlation.to_frame(name=correlation_matrix.columns[0])
+target_correlation = target_correlation.sort_values(by=target_correlation.columns[0], ascending=False)
+
+plt.figure(figsize=(10, 8))
+sns.heatmap(target_correlation, cmap="rocket", annot=True, fmt='.3f')
+
+plt.title("Heatmap of Correlation Between Predictor Variables and 'blue_Win'")
+plt.show()
+```
+
+From the heat map we can see the features with the highest correlation with 'blue_Win' are Gold_Diff, XP_Diff, Kill_Diff, all with a Pearson correlation coefficient (*r*) between 0.544 and 0.576, indicating some mild positive correlation.
+
+```{python}
+top_features = target_correlation.head(8).index.tolist()
+df_top = df[top_features]
+top_corr_matrix = df_top.corr()
+
+plt.figure(figsize=(10, 8))
+sns.heatmap(top_corr_matrix, cmap="rocket", annot=True, fmt='.2f')
+
+plt.title("Correlation Between Top 8 Features")
+plt.show()
+```
+
+Upon checking for multicollinearity we can see that Gold Diff has a very strong correlation with several other variables, we can check the variance inflation factor for our features and review whether to keep "Gold_Diff" (Removing if VIF (Variable Inflation Factor \>= 10).
+
+```{python}
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+import statsmodels.api as sm
+
+
+X = df.drop(columns=['blue_Win'])
+
+vif_data = pd.DataFrame()
+vif_data["feature"] = X.columns
+vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+
+print(vif_data.sort_values(by="VIF", ascending=False))
+```
+
+Gold_Diff has a VIF of 32.67 so we'll remove it for the Logistic Regression dataset and review how its removal affects the VIF of the other features.
+
+```{python}
+X = df.drop(columns=['blue_Win', 'Gold_Diff'])
+
+vif_data = pd.DataFrame()
+vif_data["feature"] = X.columns
+vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+
+print(vif_data.sort_values(by="VIF", ascending=False))
+```
+
+All VIF's are now below 10 so no further features will be removed. VIF tells how much the variance of a coefficient inflated because it is correlated with other features. A feature with a very large VIF will dominate the model, cause standard errors to blow up, and other coefficients to become unstable, making them flip signs or change drastically, making the model less interpretable. The calculation for VIF is $$VIF_j = 1 / (1-R^2_j)$$ Where $$R^2_j$$ is from regressing feature j on all other features.
+
+### Logistic Regression
+
+```{python}
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+
+# scaler = StandardScaler()
+# X_train_scaled = scaler.fit_transform(X_train)
+# X_test_scaled = scaler.transform(X_test)
+
+# logistic_reg = LogisticRegression(penalty='l2')
+# logistic_reg.fit(X_train_scaled, y_train)
+
+# y_pred = logistic_reg.predict(X_test_scaled)
+# accuracy = accuracy_score(y_test, y_pred)
+# print(accuracy)
+```
+
+```{python}
+# coefficients = logistic_reg.coef_[0]
+# feature_names = X.columns
+
+# plt.figure(figsize=(10, 8))
+# plt.barh(feature_names, coefficients)
+# plt.xlabel('Coefficient Value')
+# plt.ylabel('Feature')
+# plt.title('Logistic Regression Coefficients')
+# plt.show()
+```
