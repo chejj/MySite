@@ -4,28 +4,28 @@
     "href": "travel/index.html",
     "title": "Travels",
     "section": "",
-    "text": "“It’s a dangerous business… going out your door. You step onto the road, and if you don’t keep your feet, there’s no knowing where you might be swept off to.” –J.R.R. Tolkien, The Lord of the Rings\n\n\n\nReykjavík - July 2024\n\n\n\n\n\nJökulsárlón - July 2024\n\n\n\n\n\nEllis Island - June 2024\n\n\n\n\n\nLeaning Tower of Eiffel - April 2024\n\n\n\n\n\nTafi Del Valle - April 2023\n\n\n\n\n\nIguazu - April 2023"
+    "text": "“It’s a dangerous business… going out your door. You step onto the road, and if you don’t keep your feet, there’s no knowing where you might be swept off to.” –J.R.R. Tolkien\nI’ll get around to adding New Zealand, Japan and local US travel photos here at some point\nNew Zealand - November 2025\nJapan - April 2025\n\n\n\nReykjavík - July 2024\n\n\n\n\n\nJökulsárlón - July 2024\n\n\n\n\n\nEllis Island - June 2024\n\n\n\n\n\nLeaning Tower of Eiffel - April 2024\n\n\n\n\n\nTafi Del Valle - April 2023\n\n\n\n\n\nIguazu - April 2023"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Jacob Anderson",
     "section": "",
-    "text": "I’m a Data Scientist based out of Utah. Whether it’s NLP, Imaging, Signal Processing, Patient Data, Customer Data, Finance, etc.– I’ve probably built and deployed a model for it. When I’m not delivering powerful insights to corporate overlords, you can find me at home trying (and failing) to learn a new recipe, or playing board games, but usually hanging out with my wife and our friends. Whenever possible, we love to travel.\n\n\nTD Williamson | Data Scientist II | June 2024 - Present\nASU | Data Science / Statistics Course Assistant | Aug 2025 - Present\nLumea | Integrations Engineer / Manager | Feb 2021 - June 2024\nNuSkin | Tech Support (Spanish) | Nov 2017 - Jan 2021\n\n\n\nBrigham Young University | B.S. Applied Statistics\nArizona State University | M.S. Biological Data Science\n\n\n  \n  \n  \n    \n     Github\n  \n  \n    \n     Linkedin"
+    "text": "I’m a Data Scientist and Machine Learning Engineer specializing in applied modeling and production ML systems. For the past two years, I’ve worked in the pipeline industry, building data-driven solutions that detect cracks and corrosion before they lead to catastrophic failures. Previously, I spent three years developing DevOps workflows and software integrations for digital pathology and healthcare data systems. During two of those years, I built and trained a team of engineers before taking responsibility for managing the team and its projects. When I’m not serving corporate overlords, you’ll usually find me playing board games, playing sports, watching movies, or traveling somewhere new. I live near Salt Lake City, Utah, with my wife and a spider who keeps finding his way back into our house.\nThis website is clearly a work in progress. I love my job and really enjoy the work that I do, but that means I’m left with little time to code on the side. As I’m not looking for a new role, I am in no rush to finish, but feel free to ask me about any of my projects. I’ve worked on some really interesting problems and would love to discuss them.\n\n\nT.D. Williamson | Data Scientist II | June 2024 - Present\nASU | Data Science / Statistics Course Assistant | Aug 2025 - Present\nLumea | Integrations and DevOps Software Engineer / Manager | Feb 2021 - June 2024\nNuSkin | Tech Support (Spanish) | Nov 2017 - Jan 2021\n\n\n\nArizona State University | M.S. Biological Data Science | August 2024 - May 2026\nBrigham Young University | B.S. Applied Statistics | August 2017 - April 2024\n\n\n  \n  \n  \n    \n     Github\n  \n  \n    \n     Linkedin"
   },
   {
     "objectID": "index.html#experience",
     "href": "index.html#experience",
     "title": "Jacob Anderson",
     "section": "",
-    "text": "TD Williamson | Data Scientist II | June 2024 - Present\nASU | Data Science / Statistics Course Assistant | Aug 2025 - Present\nLumea | Integrations Engineer / Manager | Feb 2021 - June 2024\nNuSkin | Tech Support (Spanish) | Nov 2017 - Jan 2021"
+    "text": "T.D. Williamson | Data Scientist II | June 2024 - Present\nASU | Data Science / Statistics Course Assistant | Aug 2025 - Present\nLumea | Integrations and DevOps Software Engineer / Manager | Feb 2021 - June 2024\nNuSkin | Tech Support (Spanish) | Nov 2017 - Jan 2021"
   },
   {
     "objectID": "index.html#education",
     "href": "index.html#education",
     "title": "Jacob Anderson",
     "section": "",
-    "text": "Brigham Young University | B.S. Applied Statistics\nArizona State University | M.S. Biological Data Science"
+    "text": "Arizona State University | M.S. Biological Data Science | August 2024 - May 2026\nBrigham Young University | B.S. Applied Statistics | August 2017 - April 2024"
   },
   {
     "objectID": "league/index.html",
@@ -46,13 +46,55 @@
     "href": "professional/index.html",
     "title": "Professional Projects",
     "section": "",
-    "text": "Projects focused on applied data science, statistical analysis, and machine learning.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Projects focused on applied data science, statistical analysis, and machine learning.\n\n\n\n\n\n\n\n\n\n\n\n\nDigital Pathology and Healthcare Integrations\n\n\nBuilding secure AWS integrations for exchanging patient data, pathology images, and diagnostic reports across healthcare systems.\n\n\n\n\n\n\n\n\n\n\n\n\nEMAT Signal Processing\n\n\nUsing signal data from Electromagnetic Acoustic Transducer receivers to detect cracks in pipelines.\n\n\n\n\n\n\n\n\n\n\n\n\nFailed Sensor Scanner\n\n\nUsing signal data from Deformation (DEF) tools to detect sensor failure.\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "fun/index.html",
     "href": "fun/index.html",
     "title": "For Fun",
     "section": "",
-    "text": "Experiments, hobbies, and adventures I explore for the fun of it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Basic Exploration of Sampling with Mario Party\n\n\nA statistical look at whether Mario Party’s dice are fair and whether charging a roll changes the outcome.\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting League of Legends Matches\n\n\nUsing early-game statistics from roughly 20,000 Diamond-ranked matches to explore whether the winning team can be predicted at 15 minutes.\n\n\n\n\n\n\n\n\n\n\n\n\nTravels\n\n\nA photo collection from Iceland, New York, Italy, Argentina, and other adventures.\n\n\n\n\n\nNo matching items"
+    "text": "Experiments, hobbies, and adventures I explore for the fun of it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Basic Exploration of Sampling with Mario Party\n\n\nA statistical look at whether Mario Party’s dice are fair and whether charging a roll changes the outcome.\n\n\n\n\n\n\n\n\n\n\nNLP and Jeopardy\n\n\nExploring Jeopardy clues and categories with natural language processing.\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting League of Legends Matches\n\n\nUsing early-game statistics from roughly 20,000 Diamond-ranked matches to explore whether the winning team can be predicted at 15 minutes.\n\n\n\n\n\n\n\n\n\n\n\n\nTravels\n\n\nA photo collection from Iceland, New York, Italy, Argentina, and other adventures.\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "master/index.html",
+    "href": "master/index.html",
+    "title": "Metagenomic Analysis of Fecal Samples as a Differential Diagnostic Tool for Colorectal Cancer",
+    "section": "",
+    "text": "Publication status: The target journal is the American Society for Microbiology; this work has not yet been published.\nOpen or download the full pdf\nDownload the supplementary materials\n\n&lt;p&gt;\nYour browser cannot display the embedded PDF. &lt;a href=\"TherayessMaster.pdf\"&gt;Open the capstone directly.&lt;/a&gt;\n&lt;/p&gt;"
+  },
+  {
+    "objectID": "master/index.html#masters-capstone",
+    "href": "master/index.html#masters-capstone",
+    "title": "Metagenomic Analysis of Fecal Samples as a Differential Diagnostic Tool for Colorectal Cancer",
+    "section": "",
+    "text": "Publication status: The target journal is the American Society for Microbiology; this work has not yet been published.\nOpen or download the full pdf\nDownload the supplementary materials\n\n&lt;p&gt;\nYour browser cannot display the embedded PDF. &lt;a href=\"TherayessMaster.pdf\"&gt;Open the capstone directly.&lt;/a&gt;\n&lt;/p&gt;"
+  },
+  {
+    "objectID": "EMAT Signal Processing/index.html",
+    "href": "EMAT Signal Processing/index.html",
+    "title": "EMAT Signal Processing",
+    "section": "",
+    "text": "Work in Progress. Diagrams hand drawn as I don’t have access to production data.\n\nProblem Introduction\nIn inline inspection (ILI), thin cracks and other narrow features can be difficult for magnetic flux leakage (MFL) tools to detect because the magnetic flux may bridge small gaps rather than leak far enough from the pipe wall to produce a measurable signal. Technologies such as electromagnetic acoustic transducers (EMATs) are therefore used to detect and characterize these defects. As the name suggests, these tools transmit a sound wave that travels circumferentially around the wall of the pipe. When these waves reach a crack, the wave is deflected back and can be detected by receivers placed around the tool.\n\n\n\n\n\n\nFigure 1: EMAT Tool and Wave Diagram\n\n\n\n\nTransmitter Location: this overly simplified drawing shows the location of the transmitter at 12 o’clock. It is from where the sound wave is generated.\nReceiver Location: most receivers are 20 or more degrees offset from the transmitter. The signal data seen in Figure 2 would be from this location.\nDirect Transmission (DT): this is the first and typically the largest signal that the receiver will record as the wave travels clockwise around the pipe.\nWrap Around 1 (WA1): this is the the signal recorded as the wave travels counter-clockwise around the pipe. The wave attenuates or becomes weaker as it travels around the pipe, typically it is weaker than DT.\nWrap Around 2 (WA2): As the wave travels clockwise around the pipe, it will eventually return back to the receiver after traveling over 360 degrees."
+  },
+  {
+    "objectID": "Healthcare Integrations/index.html",
+    "href": "Healthcare Integrations/index.html",
+    "title": "Digital Pathology and Healthcare Integrations",
+    "section": "",
+    "text": "Work in Progress."
+  },
+  {
+    "objectID": "Failed Sensor Scanner/index.html",
+    "href": "Failed Sensor Scanner/index.html",
+    "title": "On-Site Sensor Failure Detection",
+    "section": "",
+    "text": "Work in Progress. Diagrams hand drawn as I don’t have access to production data. NOTE: remember to replace the image\n\nProblem Introduction\nTo assess the health and integrity of their pipelines, operators regularly hire inspection companies to run specialized tools known as “pigs” through designated sections of pipe. These tools use various technologies and sensor arrays to detect and measure features in, on, and around the pipe wall.\nOccasionally, and perhaps more often than the electrical and mechanical engineers would like to admit, these tools or their sensors fail during an inspection. Field technicians may not know that a failure occurred until the tool is returned and its data is processed. By then, tens or hundreds of miles of inspection data may have been collected and distributed for analysis.\nDepending on the number of affected sensors, the type and duration of the failure, and the resulting loss of coverage, the inspection may be partially or entirely invalid. The pipeline may then need to be inspected again, resulting in substantial costs and delays.\nIn 2024, I was tasked with developing a method to detect these failures on-site, shortly after the tool is removed from the pipeline. This allows technicians to assess whether an inspection is likely to pass validation before leaving the site.\nThe solution also needed to satisfy several technical constraints. It had to run quickly because field technicians and pipeline personnel could not wait hours for results. It also had to operate on the standard Lenovo ThinkPads issued to technicians, without relying on specialized hardware or cloud computing. Finally, each inspection generated billions of sensor readings, while individual tools varied in design and number of sensors. The method therefore needed to process large datasets efficiently while adapting to different tool configurations."
+  },
+  {
+    "objectID": "NLP and Jeopardy/index.html",
+    "href": "NLP and Jeopardy/index.html",
+    "title": "NLP and Jeopardy",
+    "section": "",
+    "text": "Work in Progress.\n\nIntroduction\nThis project explores Jeopardy clues and categories using natural language processing."
   }
 ]

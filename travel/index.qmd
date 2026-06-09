@@ -4,7 +4,13 @@ description: "A photo collection from Iceland, New York, Italy, Argentina, and o
 image: ../images/2pAa_W4gQCGbSiw8TGqTIw.jpg
 ---
 
-"*It's a dangerous business... going out your door. You step onto the road, and if you don't keep your feet, there's no knowing where you might be swept off to.*" --J.R.R. Tolkien, The Lord of the Rings
+"*It's a dangerous business... going out your door. You step onto the road, and if you don't keep your feet, there's no knowing where you might be swept off to.*" --J.R.R. Tolkien
+
+I'll get around to adding New Zealand, Japan and local US travel photos here at some point
+
+New Zealand - November 2025
+
+Japan - April 2025
 
 ![Reykjavík - July 2024](../images/2pAa_W4gQCGbSiw8TGqTIw.jpg)
 

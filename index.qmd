@@ -15,21 +15,24 @@ about:
 ---
 
 ::: {#hero-heading}
-I'm a Data Scientist based out of Utah. Whether it's NLP, Imaging, Signal Processing, Patient Data, Customer Data, Finance, etc.-- I've probably built and deployed a model for it. When I'm not delivering powerful insights to corporate overlords, you can find me at home trying (and failing) to learn a new recipe, or playing board games, but usually hanging out with my wife and our friends. Whenever possible, we love to travel.
+
+I’m a Data Scientist and Machine Learning Engineer specializing in applied modeling and production ML systems. For the past two years, I’ve worked in the pipeline industry, building data-driven solutions that detect cracks and corrosion before they lead to catastrophic failures. Previously, I spent three years developing DevOps workflows and software integrations for digital pathology and healthcare data systems. During two of those years, I built and trained a team of engineers before taking responsibility for managing the team and its projects. When I’m not serving corporate overlords, you’ll usually find me playing board games, playing sports, watching movies, or traveling somewhere new. I live near Salt Lake City, Utah, with my wife and a spider who keeps finding his way back into our house.
+
+This website is clearly a work in progress. I love my job and really enjoy the work that I do, but that means I'm left with little time to code on the side. As I'm not looking for a new role, I am in no rush to finish, but feel free to ask me about any of my projects. I've worked on some really interesting problems and would love to discuss them.
 
 ## Experience
 
-TD Williamson \| Data Scientist II \| June 2024 - Present
+T.D. Williamson \| Data Scientist II \| June 2024 - Present
 
 ASU \| Data Science / Statistics Course Assistant \| Aug 2025 - Present
 
-Lumea \| Integrations Engineer / Manager \| Feb 2021 - June 2024
+Lumea \| Integrations and DevOps Software Engineer / Manager \| Feb 2021 - June 2024
 
 NuSkin \| Tech Support (Spanish) \| Nov 2017 - Jan 2021
 
 ## Education
 
-Brigham Young University \| B.S. Applied Statistics
+Arizona State University \| M.S. Biological Data Science | August 2024 - May 2026
 
-Arizona State University \| M.S. Biological Data Science
+Brigham Young University \| B.S. Applied Statistics | August 2017 - April 2024
 :::

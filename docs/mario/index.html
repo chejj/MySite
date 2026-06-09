@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>A Basic Exploration of Sampling with Mario Party – Jacob Anderson</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -68,15 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -106,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -145,8 +147,6 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Jacob Anderson</span>
     </a>
@@ -160,6 +160,10 @@ window.Quarto = {
   <li class="nav-item">
     <a class="nav-link" href="../professional/index.html"> 
 <span class="menu-text">Professional Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../master/index.html"> 
+<span class="menu-text">Master’s Capstone</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../fun/index.html"> 
@@ -225,7 +229,7 @@ window.Quarto = {
 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="..\images/mariojamboree.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+<p><img src="../images/mariojamboree.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 <section id="introduction-and-background" class="level1">
@@ -241,7 +245,7 @@ window.Quarto = {
 <p>Holding the A button does not have a statistically significant effect on roll outcomes.</p>
 </dd>
 </dl>
-<div id="f81c6db8" class="cell" data-execution_count="1">
+<div id="d5e11c30" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -276,7 +280,7 @@ window.Quarto = {
 </section>
 <section id="are-the-dice-fair" class="level1">
 <h1>Are the Dice Fair?</h1>
-<div id="ce791fb4" class="cell" data-execution_count="2">
+<div id="b1710365" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bin_edges <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">12</span>)</span>
@@ -309,7 +313,7 @@ H_0: \text {The dice follow a uniform distribution}
 <p><span class="math display">\[
 H_a: \text {The dice do not follow a uniform distribution}
 \]</span></p>
-<div id="4bb3e7b9" class="cell" data-execution_count="3">
+<div id="1664e43e" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n_faces <span class="op">=</span> <span class="dv">10</span></span>
@@ -340,7 +344,7 @@ H_0: \mu_{chargedDie} = \mu_{unchargedDie}
 <p><span class="math display">\[
 H_a: \mu_{chargedDie} &gt; \mu_{unchargedDie}
 \]</span></p>
-<div id="85dfddb9" class="cell" data-execution_count="4">
+<div id="13335b7a" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>charged_rolls <span class="op">=</span> data[data[<span class="st">'Charged?'</span>] <span class="op">==</span> <span class="st">'Yes'</span>][<span class="st">'Number'</span>]</span>
@@ -380,7 +384,7 @@ H_a: \mu_{chargedDie} &gt; \mu_{unchargedDie}
 <section id="kolmogorov-smirnov-test" class="level3">
 <h3 class="anchored" data-anchor-id="kolmogorov-smirnov-test">Kolmogorov-Smirnov Test</h3>
 <p>The K-S Test is used here to compare the two distributions and test whether or not they come from the same underlying distribution.</p>
-<div id="34f4a07e" class="cell" data-execution_count="5">
+<div id="924a2c74" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ks_2samp</span>
@@ -407,7 +411,7 @@ P-value: 0.63</code></pre>
 <li>Store the difference</li>
 <li>Repeat Steps 1-4 n=10,000 times.</li>
 </ol>
-<div id="d27370aa" class="cell" data-execution_count="6">
+<div id="12ec6ab8" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10000</span></span>

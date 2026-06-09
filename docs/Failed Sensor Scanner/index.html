@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Detecting failed pipeline inspection sensors across billions of readings on standard field laptops before technicians leave the site.">
 
-<title>index – Jacob Anderson</title>
+<title>On-Site Sensor Failure Detection – Jacob Anderson</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -39,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -97,6 +98,10 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Professional Projects</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../master/index.html"> 
+<span class="menu-text">Master’s Capstone</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../fun/index.html"> 
 <span class="menu-text">For Fun</span></a>
   </li>  
@@ -111,17 +116,53 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#problem-introduction" id="toc-problem-introduction" class="nav-link active" data-scroll-target="#problem-introduction">Problem Introduction</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">On-Site Sensor Failure Detection</h1>
+</div>
+
+<div>
+  <div class="description">
+    Detecting failed pipeline inspection sensors across billions of readings on standard field laptops before technicians leave the site.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p><em>Work in Progress. Diagrams hand drawn as I don’t have access to production data. NOTE: remember to replace the image</em></p>
+<section id="problem-introduction" class="level1">
+<h1>Problem Introduction</h1>
+<p>To assess the health and integrity of their pipelines, operators regularly hire inspection companies to run specialized tools known as “pigs” through designated sections of pipe. These tools use various technologies and sensor arrays to detect and measure features in, on, and around the pipe wall.</p>
+<p>Occasionally, and perhaps more often than the electrical and mechanical engineers would like to admit, these tools or their sensors fail during an inspection. Field technicians may not know that a failure occurred until the tool is returned and its data is processed. By then, tens or hundreds of miles of inspection data may have been collected and distributed for analysis.</p>
+<p>Depending on the number of affected sensors, the type and duration of the failure, and the resulting loss of coverage, the inspection may be partially or entirely invalid. The pipeline may then need to be inspected again, resulting in substantial costs and delays.</p>
+<p>In 2024, I was tasked with developing a method to detect these failures on-site, shortly after the tool is removed from the pipeline. This allows technicians to assess whether an inspection is likely to pass validation before leaving the site.</p>
+<p>The solution also needed to satisfy several technical constraints. It had to run quickly because field technicians and pipeline personnel could not wait hours for results. It also had to operate on the standard Lenovo ThinkPads issued to technicians, without relying on specialized hardware or cloud computing. Finally, each inspection generated billions of sensor readings, while individual tools varied in design and number of sensors. The method therefore needed to process large datasets efficiently while adapting to different tool configurations.</p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

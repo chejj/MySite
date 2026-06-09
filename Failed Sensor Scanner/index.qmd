@@ -1,0 +1,22 @@
+---
+title: "On-Site Sensor Failure Detection"
+description: "Detecting failed pipeline inspection sensors across billions of readings on standard field laptops before technicians leave the site."
+format:
+  html:
+    code-fold: true
+    code-summary: "Show Code"
+---
+
+*Work in Progress. Diagrams hand drawn as I don't have access to production data. NOTE: remember to replace the image*
+
+# Problem Introduction
+
+To assess the health and integrity of their pipelines, operators regularly hire inspection companies to run specialized tools known as “pigs” through designated sections of pipe. These tools use various technologies and sensor arrays to detect and measure features in, on, and around the pipe wall.
+
+Occasionally, and perhaps more often than the electrical and mechanical engineers would like to admit, these tools or their sensors fail during an inspection. Field technicians may not know that a failure occurred until the tool is returned and its data is processed. By then, tens or hundreds of miles of inspection data may have been collected and distributed for analysis.
+
+Depending on the number of affected sensors, the type and duration of the failure, and the resulting loss of coverage, the inspection may be partially or entirely invalid. The pipeline may then need to be inspected again, resulting in substantial costs and delays.
+
+In 2024, I was tasked with developing a method to detect these failures on-site, shortly after the tool is removed from the pipeline. This allows technicians to assess whether an inspection is likely to pass validation before leaving the site.
+
+The solution also needed to satisfy several technical constraints. It had to run quickly because field technicians and pipeline personnel could not wait hours for results. It also had to operate on the standard Lenovo ThinkPads issued to technicians, without relying on specialized hardware or cloud computing. Finally, each inspection generated billions of sensor readings, while individual tools varied in design and number of sensors. The method therefore needed to process large datasets efficiently while adapting to different tool configurations.

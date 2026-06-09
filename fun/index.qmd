@@ -5,6 +5,7 @@ listing:
   contents:
     - ../league/index.qmd
     - ../mario/index.qmd
+    - ../NLP and Jeopardy/index.qmd
     - ../travel/index.qmd
   type: grid
   grid-columns: 3

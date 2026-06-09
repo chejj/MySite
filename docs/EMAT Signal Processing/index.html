@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -40,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -98,6 +98,10 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Professional Projects</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../master/index.html"> 
+<span class="menu-text">Master’s Capstone</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../fun/index.html"> 
 <span class="menu-text">For Fun</span></a>
   </li>  
@@ -112,8 +116,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#problem-introduction" id="toc-problem-introduction" class="nav-link active" data-scroll-target="#problem-introduction">Problem Introduction</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -142,8 +152,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p><em>Work in Progress. Diagrams hand drawn as I don’t have access to production data.</em></p>
+<section id="problem-introduction" class="level1">
+<h1>Problem Introduction</h1>
+<p>In inline inspection (ILI), thin cracks and other narrow features can be difficult for magnetic flux leakage (MFL) tools to detect because the magnetic flux may bridge small gaps rather than leak far enough from the pipe wall to produce a measurable signal. Technologies such as electromagnetic acoustic transducers (EMATs) are therefore used to detect and characterize these defects. As the name suggests, these tools transmit a sound wave that travels circumferentially around the wall of the pipe. When these waves reach a crack, the wave is deflected back and can be detected by receivers placed around the tool.</p>
+<div id="fig-emat-axial" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-emat-axial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/axial_image.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-emat-axial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: <strong>EMAT Tool and Wave Diagram</strong>
+</figcaption>
+</figure>
+</div>
+<ol type="1">
+<li><p>Transmitter Location: this overly simplified drawing shows the location of the transmitter at 12 o’clock. It is from where the sound wave is generated.</p></li>
+<li><p>Receiver Location: most receivers are 20 or more degrees offset from the transmitter. The signal data seen in Figure 2 would be from this location.</p></li>
+<li><p>Direct Transmission (DT): this is the first and typically the largest signal that the receiver will record as the wave travels clockwise around the pipe.</p></li>
+<li><p>Wrap Around 1 (WA1): this is the the signal recorded as the wave travels counter-clockwise around the pipe. The wave attenuates or becomes weaker as it travels around the pipe, typically it is weaker than DT.</p></li>
+<li><p>Wrap Around 2 (WA2): As the wave travels clockwise around the pipe, it will eventually return back to the receiver after traveling over 360 degrees.</p></li>
+</ol>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

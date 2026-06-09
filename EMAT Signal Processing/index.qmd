@@ -7,3 +7,26 @@ format:
     code-fold: true
     code-summary: "Show Code"
 ---
+
+*Work in Progress. Diagrams drawn on Excalidraw as I don't have access to production data.*
+
+# Problem Introduction
+
+In inline inspection (ILI), thin cracks and other narrow features can be difficult for magnetic flux leakage (MFL) tools to detect because the magnetic flux may bridge small gaps rather than leak far enough from the pipe wall to produce a measurable signal. Technologies such as electromagnetic acoustic transducers (EMATs) are therefore used to detect and characterize these defects. As the name suggests, these tools transmit a sound wave that travels circumferentially around the wall of the pipe. When these waves reach a crack, the wave is deflected back and can be detected by receivers placed around the tool.
+
+::: {#fig-emat-axial}
+![](/images/axial_image.svg){fig-align="center" width="100%"}
+
+**EMAT Tool and Wave Diagram**
+:::
+
+1. Transmitter Location: this overly simplified drawing shows the location of the transmitter at 12 o'clock. It is from where the sound wave is generated.
+
+2. Receiver Location: most receivers are 20 or more degrees offset from the transmitter. The signal data seen in Figure 2 would be from this location.
+
+3. Direct Transmission (DT): this is the first and typically the largest signal that the receiver will record as the wave travels clockwise around the pipe.
+
+4. Wrap Around 1 (WA1): this is the the signal recorded as the wave travels counter-clockwise around the pipe. The wave attenuates or becomes weaker as it travels around the pipe, typically it is weaker than DT.
+
+5. Wrap Around 2 (WA2): As the wave travels clockwise around the pipe, it will eventually return back to the receiver after traveling over 360 degrees.
+

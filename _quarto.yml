@@ -8,6 +8,8 @@ website:
     left:
       - href: professional/index.qmd
         text: Professional Projects
+      - href: master/index.qmd
+        text: Master's Capstone
       - href: fun/index.qmd
         text: For Fun
 
@@ -17,6 +19,4 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
-
-
 

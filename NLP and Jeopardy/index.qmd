@@ -1,0 +1,14 @@
+---
+title: "NLP and Jeopardy"
+description: "Exploring Jeopardy clues and categories with natural language processing."
+format:
+  html:
+    code-fold: true
+    code-summary: "Show Code"
+---
+
+*Work in Progress.*
+
+# Introduction
+
+This project explores Jeopardy clues and categories using natural language processing.
