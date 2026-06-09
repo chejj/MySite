@@ -6,6 +6,7 @@ listing:
     - ../league/index.qmd
     - ../mario/index.qmd
     - ../NLP and Jeopardy/index.qmd
+    - ../Pokemon Dashboard/index.qmd
     - ../travel/index.qmd
   type: grid
   grid-columns: 3

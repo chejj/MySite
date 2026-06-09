@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - "Pokemon Dashboard/dashboard/**"
 
 website:
   title: "Jacob Anderson"
@@ -19,4 +21,3 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
-

@@ -1,0 +1,191 @@
+Name,Description
+Adaptability,Increases the Same Type Attack Bonus from *1.5 to *2.
+Aerilate,Increases the power of Normal-type moves by 20%. It then changes those moves to Flying-type.
+Aftermath,The foe that dealt the final hit loses 1/4 of its maximum HP if the move made physical contact.
+Analytic,Attack power increases by 30% if the Pokémon is the last Pokémon to attack this turn
+Anger Point,Increases Attack to maximum level upon taking a critical hit.
+Anticipation,Warns when the foe knows 1-hit KO or super-effective moves.
+Armor Tail,The mysterious tail covering the Pokémon's head makes opponents unable to use priority moves against the Pokémon or its allies.
+Aroma Veil,Protects itself and its allies from attacks that limit their move choices.
+Berserk,Boosts the Pokémon's Sp. Atk stat when it takes a  hit that causes its HP to become half or less.
+Big Pecks,Protects the Pokémon from Defense-lowering effects.
+Blaze,"When HP is below 1/3rd its maximum, power of Fire-type moves is increased by 50%."
+Bulletproof,Protects the Pokémon from some ball and bomb moves.
+Cheek Pouch,Restores HP as well when the Pokémon eats a Berry.
+Chlorophyll,"When sunny, the Pokémon’s Speed doubles."
+Clear Body,Opponents’ moves which lower this Pokémon’s stats have no effect. However this Pokémon may lower its own stats with its own moves.
+Cloud Nine,All weather effects are negated while the Pokémon is on the field.
+Competitive,Raises Sp. Atk stat by two stages whenever a stat is lowered
+Compoundeyes,"Raises the Pokémon’s accuracy by 30%. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon holding an item increases from 50% to 60% or 5% to 20%."
+Contrary,"Moves used on the Pokémon that raise stats lower the stats, while the moves that lower the stats raise the stat"
+Corrosion,The Pokémon can poison the target even if it's a Steel or Poison type.
+Cud Chew,"When the Pokémon eats a Berry, it will regurgitate that Berry at the end of the next turn and eat it one more time."
+Curious Medicine,"When the Pokémon  is brought into battle, any stat alterations of allies are removed Own Tempo : The Pokémon cannot be Confused while having this ability. Blocks Intimidate : Regenerator : When the Pokémon switches out of battle, up to 33.3% of its maximum Hit Points are restored"
+Cursed Body,"When a move hits the Pokémon, that move has a 30% chance of getting disabled"
+Cute Charm,"The opponent has a 30% chance of being induced with Attract when using an attack, that requires physical contact, against this Pokémon. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon of the opposite gender will be 66.6%. Does not effect swarming Pokémon. . This doesn't work in Pokémon Scarlet & Violet onwards"
+Damp,"Explosion, Selfdestruct, Mind Blown & Misty Explosion will not work while the Pokémon is on the field."
+Defiant,Attack is raised by two stages when the Pokémon has its stats lowered. Doesn't work on self inflicted stat drops or drops from allies
+Disguise,"Once per battle, the Pokémon can withstand one damaging attack without receiving any damage. Damage inflicted through entry hazards, weather or status conditions will not break the disguise. Damage from Confusion will break the Disguise. It causes 1/8th of max Hit Point damage when it breaks"
+Dragonize,The Pokémon's Normal-type moves become Dragon-type moves and their power is boosted by 20%.
+Drizzle,"Weather changes to Heavy Rain when the Pokémon enters the battle. As of X & Y, this lasts 5 turns."
+Drought,"Weather changes to Intense Sunshine when the Pokémon enters the battle. As of X & Y, this lasts 5 turns."
+Dry Skin,HP is restored when hit by Water-type moves or when it is raining but also makes the Pokémon weak to Fire-type moves and reduces HP during strong sunlight.
+Early Bird,"Sleep conditions lasts for half as long, rounding down. For example, half of three turns is 1.5, which rounds down to one turn. When the number of turns to sleep is one, half of this rounded down is zero, and the Pokémon wakes up instantly."
+Earth Eater,The user recovers 25% of its maximum Hit Points when a Ground-type move is used against it
+Electromorphosis,"The Pokémon becomes charged when it takes damage, boosting the power of the next Electric-type move the Pokémon uses."
+Fairy Aura,Powers up every Pokémon in play's Fairy-type moves by 33%
+Filter,Damage by super-effective moves is reduced by 25%.
+Flame Body,"The opponent has a 30% chance of being induced with Burn when using an attack, that requires physical contact, against this Pokémon. Overworld Effect: Eggs hatch quicker (half the number of steps are required)."
+Flash Fire,"Activates when user is hit by a damaging Fire-type move (including Fire-type Hidden Power). Once activated, user’s Fire-type moves deal 1.5 times damage. While this ability is in effect, this Pokémon is immune to damage from Fire-type attacks and Fire-type Hidden Power (accuracy and effect from these moves are ignored). For Fire-type Pokémon with this ability, Will-O-Wisp activates this ability without having an effect. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a Fire-type wild Pokémon increases severely. . This doesn't work in Pokémon Scarlet & Violet onwards"
+Flower Veil,Ally Grass-type Pokémon are protected from status conditions and the lowering of their stats.
+Forecast,"This Pokémon’ changes its form and type if Harsh Sunlight, Heavy Rain or Snow is in effect."
+Friend Guard,"In Double battles, the damage that ally Pokémon receive from attacks is reduced by 25%."
+Frisk,Reveals the foe’s held item.
+Fur Coat,Halves the damage from physical moves onto this Pokémon.
+Gale Wings,All Flying-type moves have their Speed Priority increased by 1 if the Pokémon's Hit Points are at maximum
+Gluttony,The Pokémon will use a berry when its Hit Points are below 50%.
+Gooey,Lowers the opponent's Speed by one stage when it makes physical contact.
+Guts,"Attack is increased by 50% when induced with a status (BURN, PARALYZE, SLEEP, POISON, FREEZE). Burn’s effect of lowering Attack is not applied."
+Harvest,"The Pokémon has a 50% chance of restoring a consumed berry. During sunshine, this chance increases to 100% Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a Grass-type wild Pokémon increases severely.. This doesn't work in Pokémon Scarlet & Violet onwards"
+Healer,"At the end of the turn, there is a 30% chance of either Ally being healed from a status condition"
+Heatproof,Damage from Fire-type moves and the Burn status is halved.
+Heavy Metal,Doubles the Pokémon's weight.
+Hospitality,Heals up to 25% of its partner Pokémon's Maximum Hit Points when it enters battle
+Huge Power,The Pokémon's Attack stat is doubled while it has this ability.
+Hunger Switch,"The Pokémon changes its form, alternating between its Full Belly Mode and Hangry Mode after the end of each turn."
+Hustle,"Damage from physical attacks is increased by 50%, but average accuracy is only 80%. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a high level wild Pokémon increases by 50%.. This does not work in Pokémon Sword & Shield onwards"
+Hydration,"All status problems: Burn, Paralysis, Sleep, Frozen and Poison, are healed when raining."
+Hyper Cutter,Opponent cannot lower this Pokémon’s Attack value. This Pokémon may still lower its own Attack value using a move of by itself.
+Ice Body,HP is restored by 1/16th of maximum HP when its Snowing.
+Illuminate,"By Iluminating its surroundings, the Pokémon prevents its accuracy from being lowered Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon increases to 200%. In Pokémon Sword & Shield, this only works on Random encounters. This doesn't work in Pokémon Scarlet & Violet onwards"
+Illusion,"When sent out into battle, it takes the name and appearance of the last non-fainted Pokémon within your party. It breaks when an attack does damage on the Pokémon but not from Weather Effects or Entry Hazards."
+Immunity,The Pokémon cannot be Poisoned while having this ability.
+Imposter,"When sent into battle, the Pokémon automatically transforms into a random opponent that is on the field."
+Infiltrator,"The protections and stat boosts caused by the moves Substitute, Reflect, Light Screen and Safeguard by the opponent are ignored. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon decreases to 50%. In Pokémon Sword & Shield this reduces to 12.5%. This doesn't work in Pokémon Scarlet & Violet onwards"
+Innards Out,Damages the attacker landing the finishing hit by the amount equal to its last HP.
+Inner Focus,This Pokémon will not flinch. Does not prevent flinching with Focus Punch. Also prevents stats from being lowered by the ability Intimidate
+Insomnia,The Pokémon cannot be put to Sleep while having this ability.
+Intimidate,"Upon entering battle or receiving the ability, the opponent’s Attack lowers one stage. In a Double Battle, both opponents’ Attack are lowered. Pokémon with the Clear Body, Hyper Cutter, or White Smoke ability are unaffected. In a link battle, if both sides switch on the same turn, and first player sends out a Pokémon with Intimidate, the opponent’s Attack will be lowered before the opponent’s Pokémon switches. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a low level wild Pokémon decreases by 50%. This applies to Pokémon five levels lower than or below the level of the lead Pokémon. This doesn't workf rom Pokémon Sword & Shield onwards"
+Iron Fist,The power of punching moves is increased by 20%. This stacks with Punching Glove .
+Justified,Attack is raised by one stage when the Pokémon is hit by a Dark-type move
+Keen Eye,"Opponent cannot lower this Pokémon’s accuracy. The Pokémon ignores evasion boosts of the opponent Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a low level wild Pokémon decreases by 50%. This applies to Pokémon five levels lower than or below the level of the lead Pokémon."
+Klutz,"The Pokémon cannot receive any effect of hold items except those that affect experience, EVs, friendship etc. such as Amulet Coin, Soothe Bell, Lucky Egg, Exp.Share, Macho Brace or the Power Items."
+Leaf Guard,Prevents the Pokémon from being afflicted by status conditions during strong sunlight.
+Levitate,Damage dealing Ground-type moves have no effect on this Pokémon. Cannot be trapped by Arena Trap ability. Takes no damage from Spikes.
+Light Metal,Halves the Pokémon's weight.
+Lightning Rod,"Electric-type moves are drawn to this Pokémon. Electric-type moves will do no damage and the Pokémon's SP ATK is raised one stage. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering an Electric-type wild Pokémon increases severely. This doesn't work in Pokémon Scarlet & Violet onwards"
+Limber,The Pokémon cannot be Paralysed while having this ability.
+Liquid Voice,All sound-based moves become Water-type moves.
+Magic Bounce,Reflects non-attacking moves used on the Pokémon back to the attacking Pokémon
+Magic Guard,"Prevents all no damage except from direct-attack moves, excluding damage self inflicted from Substitute, Belly Drum, Curse & Pain Split."
+Magician,The Pokémon steals the held item of a Pokémon it hits with a move.
+Magma Armor,This Pokémon cannot be Frozen while having this ability. Overworld Effect: Eggs hatch quicker (half the number of steps are required).
+Marvel Scale,"Defense is increased by 50% when induced with a status (BURN, PARALYZE, SLEEP, POISON, FREEZE)."
+Mega Launcher,Increases the power of Aura and Pulse moves by 50%
+Mega Sol,"Even when the sunlight has not turned harsh, the Pokémon can use its moves as if the weather were harsh sunlight."
+Merciless,The Pokémon's attacks become critical hits if the target is poisoned.
+Mimicry,"Changes to Electric-type in Electric Terrain, Psychic-type in Psychic Terrain, Grass-type in Grassy Terrain and Fairy type in Fairy-terrain. The type reverts to normal when the terrain ends."
+Minus,"When battling with Plus or Minus, Special Attack increases by 50%."
+Mirror Armor,Bounces back only the stat-lowering effects that the Pokémon receives.
+Mold Breaker,The Pokémon's moves are not affected by foe’s abilities during battle
+Moody,"At the end of every turn, a random stat (except Accuracy and Evasion) is raised by two stages while another is lowered by one stage."
+Motor Drive,The Pokémon takes no damage from Electric-type attacks and Speed raises by one level.
+Moxie,Attack is raised by one stage when the Pokémon knocks out another Pokémon
+Multiscale,Reduces damage afflicted to the Pokémon by 50% if at maximum HP
+Mummy,Contact with the Pokémon changes the attacker's Ability to Mummy.
+Natural Cure,"The Pokémon’s status (BURN, PARALYZE, SLEEP, POISON, FREEZE) is healed when withdrawn from battle."
+No Guard,"The accuracy of all moves known by this Pokémon and all Pokémon targeting this Pokémon raises to 100% Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon increases by 100%. This doesn't work in Pokémon Scarlet & Violet onwards"
+Oblivious,"The Pokémon cannot be under the Attract condition, Intimidated, or be taunted, while having this ability."
+Opportunist,"If an opponent's stat is boosted, the Pokémon seizes the opportunity to boost the same stat for itself."
+Overcoat,"Protects Pokémon from Weather Effects and Powder moves such as Sleep Powder, Poison Powder etc."
+Overgrow,"When HP is below 1/3rd its maximum, power of Grass-type moves is increased by 50%."
+Own Tempo,The Pokémon cannot be Confused while having this ability. Blocks Intimidate
+Parental Bond,"Every move used by the Pokémon will hit twice. The damage inflicted by the second hit is reduced to 25%. If the move used is a damaging move, each hit is capable of afflicting Secondary Effects and Critical Hits"
+Pickpocket,"When a Pokémon makes physical contact with the Pokémon, the item of the opponent is stolen."
+Pickup,"Has a 10% chance of finding and holding an item after battle. Will not work if this Pokémon is already holding an item. From Black & White, it allows for the user to pick up the item of its opponent or ally if they used up the item in battle."
+Piercing Drill,"When the Pokémon uses contact moves, it can hit even targets that are protecting themselves, dealing 1/4 of the damage that the move would otherwise deal. Everything aside from the target's protective effects is still triggered."
+Pixilate,Increases the power of Normal-type moves by 20%. It then changes those moves to Fairy-type.
+Plus,"When battling with Plus or Minus, Special Attack increases by 50%."
+Poison Heal,HP is restored by 1/8th the maximum HP every turn while the Pokémon has the Poison condition.
+Poison Point,"The opponent has a 30% chance of being induced with Poison when using an attack, that requires physical contact, against this Pokémon."
+Poison Touch,"When the Pokémon attacks its opponents with a move that causes Physical Contact, there is a 30% chance that the target is Poisoned."
+Prankster,Status category moves have their Speed Priority increased by 1. Moves increased by this that are used on Dark-type opponents will fail.
+Pressure,"When this Pokémon is hit by a move, the opponent’s PP lowers by 2 rather than 1. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a high level wild Pokémon increases by 50%."
+Protean,"Before the Pokémon uses a move, it becomes a pure Pokémon of that type. This only works once per switch in."
+Pure Power,The Pokémon’s Attack stat is doubled in battle while having this ability.
+Purifying Salt,The Pokémon's pure salt protects it from status conditions and halves the damage taken from Ghost-type moves.
+Queenly Majesty,Prevents the opponent from using moves with increased Speed Priority on this Pokémon or its allies.
+Quick Draw,"At the start of each turn, this Pokémon has a 30% chance of moving first in the Speed Priority Bracket"
+Quick Feet,"Speed is increased by 50% when induced with a status (Burn, Poison, Sleep, Frozen & Paralysis). If Paralysed, the speed drop is ignored. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon decreases to 50%. In Pokémon Sword & Shield this reduces to 12.5%. This doesn't work in Pokémon Scarlet & Violet onwards"
+Rain Dish,"If Heavy Rain weather is in effect, recovers 1/16th max Hit Points at the end of the turn."
+Receiver,The Pokémon copies the Ability of a defeated ally.
+Reckless,The power of moves that have recoil damage is increased by 20%.
+Refrigerate,Increases the power of Normal-type moves by 20%. It then changes those moves to Ice-type.
+Regenerator,"When the Pokémon switches out of battle, up to 33.3% of its maximum Hit Points are restored"
+Ripen,Ripens Berries and doubles their effect.
+Rivalry,Attack & Special Attack is increased by 25% if the foe is of the same gender; Attack & Special Attack is decreased by 25% if the foe is of the opposite gender.
+Rock Head,Does not receive recoil damage from recoil-causing damages.
+Rough Skin,"The opponent is hurt by 1/8th of his maxium Hit Points of recoil when using an attack, that requires physical contact, against this Pokémon."
+Sand Force,"Ground-type, Rock-type & Steel-type moves have their power increased by 30% in a Sandstorm and will not receive damage"
+Sand Rush,Speed is doubled within a sandstorm
+Sand Spit,The Pokémon creates a sandstorm when it's hit by an attack.
+Sand Stream,"Sandstorm blows when the Pokémon enters battle. As of X & Y, this lasts 5 turns."
+Sand Veil,"Raises the Pokémon’s evasion during a sandstorm by one level. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon during a sandstorm decreases to 50%. This does not work in Pokémon Sword & Shield onwards"
+Sap Sipper,Attack is raised by one stage when the Pokémon is hit by a Grass-type move. User receives no damage from Grass-type attacks.
+Scrappy,Allows the Pokémon to hit Ghost-type Pokémon with Normal-type and Fighting-type moves. Blocks Intimidate
+Screen Cleaner,"When the Pokémon enters a battle, the effects of Light Screen, Reflect, and Aurora Veil are nullified for both opposing and ally Pokémon."
+Shadow Tag,"The opponent cannot run nor switch while this Pokémon is in play. The opponent may still switch by using Baton Pass, U-turn or Volt Switch, if it is holding a Shed Shell or is a Ghost-type."
+Sharpness,Increases the power of Slicing moves used by this Pokémon by 50%
+Shed Skin,"Every turn, it has a 1 in 3 chance of healing from a status condition (BURN, PARALYZE, SLEEP, POISON, FREEZE)."
+Sheer Force,Moves with a secondary effect are increased in power by 30% but lose their secondary effect
+Shell Armor,Opponent’s moves cannot Critical Hit.
+Shield Dust,Damaging moves used by the opponent will not have an additional effect.
+Skill Link,Moves that attack 2-5 times always hit 5 times.
+Slush Rush,Doubles the Pokémon's Speed when Snow is in effect
+Sniper,Power of critical-hit moves is increased to 225% rather than 150%.
+Snow Cloak,"Raises the Pokémon’s evasion during a Snowstorm by one level. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon during a Snowstorm decreases to 50%."
+Snow Warning,"Snowstorm blows when the Pokémon enters battle. As of X & Y, this lasts 5 turns."
+Solar Power,"During sunshine, the Pokémon’s Special Attack raises to 1.5 times but HP decreases by 1/8th the maximum HP every turn."
+Solid Rock,Damage by super-effective moves is reduced by 25%.
+Soundproof,"Unaffected by sound moves. If this Pokémon switches out with Baton Pass, Perish Song against the switched out will not be nullified."
+Speed Boost,Speed increases by one stage at the end of each turn.
+Spicy Spray,"When the Pokémon takes damage from a move, it burns the attacker."
+Stall,The Pokémon always attacks last.
+Stalwart,Ignores the effects of opposing Pokémon's Abilities and moves that draw in moves.
+Stamina,Boosts the Defense stat when hit by an attack.
+Stance Change,"The Pokémon changes its form to Blade Forme when it uses an attack move, and changes to Shield Forme when it uses King's Shield."
+Static,"The opponent has a 30% chance of being induced with PARALYZE when using an attack, that requires physical contact, against this Pokémon. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering an Electric-type wild Pokémon increases severely."
+Steadfast,Speed raises by one level every time the Pokémon flinches.
+Stench,"If the Pokémon uses a move that deals damage on the opponent, there is a chance the opponent flinches Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon decreases to 50%. In Pokémon Sword & Shield this reduces to 12.5%. This doesn't work in Pokémon Scarlet & Violet onwards"
+Sticky Hold,"This Pokémon’s item cannot be taken. Overworld Effect: If the Pokémon is in the lead spot, when fishing, Pokémon are easier to catch."
+Strong Jaw,Increases the power of biting moves by 50%
+Sturdy,"The Pokémon will remain with 1 HP if it was going to be knocked out by a move when at full Hit Points, and it is immune to One Hit KO moves."
+Super Luck,"Raises the critical-hit ratio of moves by one level. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon holding an item increases."
+Supersweet Syrup,Lowers the evasion of opposing Pokémon by 1 stage when first sent into battle
+Supreme Overlord,"When the Pokémon enters a battle, its Attack and Sp. Atk stats are boosted by 10% for each of the allies in its party that have already been defeated."
+Surge Surfer,Doubles the Pokémon's Speed stat on Electric Terrain.
+Swarm,"When HP is below 1/3rd its maximum, power of Bug-type moves is increased by 50%. Overworld Effect: While travelling, the roar of common wild Pokémon can be heard more often if the Pokémon is in the lead spot."
+Sweet Veil,Prevents itself and ally Pokémon from falling asleep.
+Swift Swim,"When rainy, The Pokémon’s Speed doubles."
+Symbiosis,Passes the Pokémon's hold item to its adjacent ally when that ally consumes its hold item
+Synchronize,"When this Pokémon becomes Poisoned, Paralyzed, or Burned, so does the opponent. However, Fire-type and Water Veil ability Pokémon cannot be Burned, Poison-type and Steel-type and Immunity ability Pokémon cannot be Poisoned, and Limber ability Pokémon cannot be Paralyzed."
+Tangled Feet,Pokémon’s evasion raises one level when Confused.
+Technician,Moves with a base power of 60 or less are boosted in power by 50%
+Telepathy,Prevents damage from team-mates during Double battles
+Thick Fat,Fire and Ice-type moves deal 50% damage.
+Torrent,"When HP is below 1/3rd its maximum, power of Water-type moves is increased by 50%."
+Tough Claws,Increases the power of moves that make physical contact by 30%
+Toxic Debris,Scatters poison spikes at the feet of the opposing team when the Pokémon takes damage from physical moves.
+Trace,"Ability becomes the same as that of the opponent. Switching this Pokémon out of battle restores its original ability. In a Double Battle, a random opponent’s ability will be copied."
+Unaware,Foe’s stat modifications are ignored.
+Unburden,Speed is doubled once the held item is consumed.
+Unnerve,The opponent Pokémon will never use their held Berry while the Pokémon is in battle.
+Unseen Fist,"The Pokémon can deal damage with moves that make physical contact, even if the target is protected."
+Vital Spirit,"The Pokémon cannot be Asleep while having this ability. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a high level wild Pokémon increases by 50%. In Pokémon Sword & Shield, this only works on Random encounters. This doesn't work in Pokémon Scarlet & Violet onwards"
+Volt Absorb,The Pokémon heals up to 1/4 of its maximum Hit Points when hit with Electric-type moves.
+Wandering Spirit,The Pokémon exchanges Abilities with a Pokémon that hits it with a move that makes direct contact.
+Water Absorb,The Pokémon heals up to 1/4 of its maximum Hit Points when hit with Water-type moves.
+Water Bubble,Decreases Fire-type move power on the Pokémon by 50%. Increases power of Water-type moves used by the Pokémon by 100% before adding STAB. Prevents Burn
+Weak Armor,"When hit by an attack, the Pokémon's Defense is lowered by one stage but Speed is increased by two stages."
+White Smoke,"Opponents’ moves which lower this Pokémon’s stats have no effect. However this Pokémon may lower its own stats with its own moves. Overworld Effect: If the Pokémon is in the lead spot, chance of encountering a wild Pokémon decreases to 50%."
+Zero to Hero,The Pokémon transforms into its Hero Form when it switches out.

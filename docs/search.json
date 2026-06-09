@@ -53,7 +53,7 @@
     "href": "fun/index.html",
     "title": "For Fun",
     "section": "",
-    "text": "Experiments, hobbies, and adventures I explore for the fun of it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Basic Exploration of Sampling with Mario Party\n\n\nA statistical look at whether Mario Party’s dice are fair and whether charging a roll changes the outcome.\n\n\n\n\n\n\n\n\n\n\nNLP and Jeopardy\n\n\nExploring Jeopardy clues and categories with natural language processing.\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting League of Legends Matches\n\n\nUsing early-game statistics from roughly 20,000 Diamond-ranked matches to explore whether the winning team can be predicted at 15 minutes.\n\n\n\n\n\n\n\n\n\n\n\n\nTravels\n\n\nA photo collection from Iceland, New York, Italy, Argentina, and other adventures.\n\n\n\n\n\nNo matching items"
+    "text": "Experiments, hobbies, and adventures I explore for the fun of it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Basic Exploration of Sampling with Mario Party\n\n\nA statistical look at whether Mario Party’s dice are fair and whether charging a roll changes the outcome.\n\n\n\n\n\n\n\n\n\n\nNLP and Jeopardy\n\n\nExploring Jeopardy clues and categories with natural language processing.\n\n\n\n\n\n\n\n\n\n\nPokemon Dashboard\n\n\nA serverless Shiny dashboard for exploring Pokemon stats, moves, abilities, types, and natures.\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting League of Legends Matches\n\n\nUsing early-game statistics from roughly 20,000 Diamond-ranked matches to explore whether the winning team can be predicted at 15 minutes.\n\n\n\n\n\n\n\n\n\n\n\n\nTravels\n\n\nA small collection of photos from travels across the globe.\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "master/index.html",
@@ -96,5 +96,12 @@
     "title": "NLP and Jeopardy",
     "section": "",
     "text": "Work in Progress.\n\nIntroduction\nThis project explores Jeopardy clues and categories using natural language processing."
+  },
+  {
+    "objectID": "Pokemon Dashboard/index.html",
+    "href": "Pokemon Dashboard/index.html",
+    "title": "Pokemon Dashboard",
+    "section": "",
+    "text": "This interactive dashboard runs entirely in your browser using Shinylive. The first load may take a moment while the Python runtime starts.\nOpen the dashboard in a new tab"
   }
 ]

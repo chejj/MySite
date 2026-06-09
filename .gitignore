@@ -9,3 +9,10 @@ mario/marioparty.csv
 /.quarto/
 
 **/*.quarto_ipynb
+
+# Python runtime artifacts
+**/__pycache__/
+**/*.py[cod]
+
+# Rebuilt with Shinylive; the deployable copy under docs/ is committed.
+/Pokemon Dashboard/dashboard/

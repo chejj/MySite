@@ -16,9 +16,11 @@ about:
 
 ::: {#hero-heading}
 
-I’m a Data Scientist and Machine Learning Engineer specializing in applied modeling and production ML systems. For the past two years, I’ve worked in the pipeline industry, building data-driven solutions that detect cracks and corrosion before they lead to catastrophic failures. Previously, I spent three years developing DevOps workflows and software integrations for digital pathology and healthcare data systems. During two of those years, I built and trained a team of engineers before taking responsibility for managing the team and its projects. When I’m not serving corporate overlords, you’ll usually find me playing board games, playing sports, watching movies, or traveling somewhere new. I live near Salt Lake City, Utah, with my wife and a spider who keeps finding his way back into our house.
+I’m a Data Scientist and Machine Learning Engineer specializing in applied modeling and production ML systems. For the past two years, I’ve worked in the pipeline industry, building data-driven solutions that detect cracks and corrosion before they lead to catastrophic failures. Previously, I spent three years developing DevOps workflows and software integrations for digital pathology and healthcare data systems. During two of those years, I built and trained a team of engineers before taking responsibility for managing the team and its projects.
 
-This website is clearly a work in progress. I love my job and really enjoy the work that I do, but that means I'm left with little time to code on the side. As I'm not looking for a new role, I am in no rush to finish, but feel free to ask me about any of my projects. I've worked on some really interesting problems and would love to discuss them.
+When I’m not serving corporate overlords, you’ll usually find me playing board games, playing sports, watching movies, or traveling somewhere new. I live near Salt Lake City, Utah, with my wife and a spider who keeps finding his way back into our house.
+
+This website is clearly a work in progress. I love my job and enjoy the work that I do, so I'm not too active about working on this site. Any and all work generated or edited by AI is flagged as such.
 
 ## Experience
 
