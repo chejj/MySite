@@ -14,3 +14,10 @@
 .quarto-grid-item .card-img-top {
   object-fit: cover;
 }
+
+/* Center summary sections that sit below the homepage hero */
+.home-summary {
+  max-width: 52rem;
+  margin: 2rem auto 0;
+  text-align: center;
+}

@@ -11,21 +11,21 @@
     "href": "index.html",
     "title": "Jacob Anderson",
     "section": "",
-    "text": "I’m a Data Scientist and Machine Learning Engineer specializing in applied modeling and production ML systems. For the past two years, I’ve worked in the pipeline industry, building data-driven solutions that detect cracks and corrosion before they lead to catastrophic failures. Previously, I spent three years developing DevOps workflows and software integrations for digital pathology and healthcare data systems. During two of those years, I built and trained a team of engineers before taking responsibility for managing the team and its projects. When I’m not serving corporate overlords, you’ll usually find me playing board games, playing sports, watching movies, or traveling somewhere new. I live near Salt Lake City, Utah, with my wife and a spider who keeps finding his way back into our house.\nThis website is clearly a work in progress. I love my job and really enjoy the work that I do, but that means I’m left with little time to code on the side. As I’m not looking for a new role, I am in no rush to finish, but feel free to ask me about any of my projects. I’ve worked on some really interesting problems and would love to discuss them.\n\n\nT.D. Williamson | Data Scientist II | June 2024 - Present\nASU | Data Science / Statistics Course Assistant | Aug 2025 - Present\nLumea | Integrations and DevOps Software Engineer / Manager | Feb 2021 - June 2024\nNuSkin | Tech Support (Spanish) | Nov 2017 - Jan 2021\n\n\n\nArizona State University | M.S. Biological Data Science | August 2024 - May 2026\nBrigham Young University | B.S. Applied Statistics | August 2017 - April 2024\n\n\n  \n  \n  \n    \n     Github\n  \n  \n    \n     Linkedin"
+    "text": "I’m a Data Scientist and Machine Learning Engineer specializing in applied modeling and production ML systems. For the past two years, I’ve worked in the pipeline industry, building data-driven solutions that detect cracks and corrosion before they lead to catastrophic failures. Previously, I spent three years developing DevOps workflows and software integrations for digital pathology and healthcare data systems. During two of those years, I built and trained a team of engineers before taking responsibility for managing the team and its projects.\nWhen I’m not serving corporate overlords, you’ll usually find me playing board games, playing sports, watching movies, or traveling somewhere new. I live near Salt Lake City, Utah, with my wife and a spider who keeps finding his way back into our house.\nThis website is clearly a work in progress. I love my job and enjoy the work that I do, so I’m not too active about working on this site. Any and all non codes sections are written by me, but any code or work generated or edited by AI is flagged as such.\n\n  \n  \n  \n    \n     Github\n  \n  \n    \n     Linkedin"
   },
   {
     "objectID": "index.html#experience",
     "href": "index.html#experience",
     "title": "Jacob Anderson",
-    "section": "",
-    "text": "T.D. Williamson | Data Scientist II | June 2024 - Present\nASU | Data Science / Statistics Course Assistant | Aug 2025 - Present\nLumea | Integrations and DevOps Software Engineer / Manager | Feb 2021 - June 2024\nNuSkin | Tech Support (Spanish) | Nov 2017 - Jan 2021"
+    "section": "Experience",
+    "text": "Experience\nT.D. Williamson | Data Scientist II | June 2024 - Present\nASU | Data Science / Statistics Course Assistant | Aug 2025 - Present\nLumea | Integrations and DevOps Software Engineer / Manager | Feb 2021 - June 2024\nNuSkin | Tech Support (Spanish) | Nov 2017 - Jan 2021"
   },
   {
     "objectID": "index.html#education",
     "href": "index.html#education",
     "title": "Jacob Anderson",
-    "section": "",
-    "text": "Arizona State University | M.S. Biological Data Science | August 2024 - May 2026\nBrigham Young University | B.S. Applied Statistics | August 2017 - April 2024"
+    "section": "Education",
+    "text": "Education\nArizona State University | M.S. Biological Data Science | August 2024 - May 2026\nBrigham Young University | B.S. Applied Statistics | August 2017 - April 2024"
   },
   {
     "objectID": "league/index.html",
@@ -46,7 +46,7 @@
     "href": "professional/index.html",
     "title": "Professional Projects",
     "section": "",
-    "text": "Projects focused on applied data science, statistical analysis, and machine learning.\n\n\n\n\n\n\n\n\n\n\n\n\nDigital Pathology and Healthcare Integrations\n\n\nBuilding secure AWS integrations for exchanging patient data, pathology images, and diagnostic reports across healthcare systems.\n\n\n\n\n\n\n\n\n\n\n\n\nEMAT Signal Processing\n\n\nUsing signal data from Electromagnetic Acoustic Transducer receivers to detect cracks in pipelines.\n\n\n\n\n\n\n\n\n\n\n\n\nFailed Sensor Scanner\n\n\nUsing signal data from Deformation (DEF) tools to detect sensor failure.\n\n\n\n\n\nNo matching items"
+    "text": "Projects focused on applied data science, statistical analysis, and machine learning.\n\n\n\n\n\n\n\n\n\n\n\n\nDigital Pathology and Healthcare Integrations\n\n\nBuilding secure AWS integrations for exchanging patient data, pathology images, and diagnostic reports across healthcare systems.\n\n\n\n\n\n\n\n\n\n\n\n\nEMAT Signal Processing\n\n\nUsing signal data from Electromagnetic Acoustic Transducer receivers to detect cracks in pipelines.\n\n\n\n\n\n\n\n\n\n\nOn-Site Sensor Failure Detection\n\n\nDetecting failed pipeline inspection sensors across billions of readings on standard field laptops before technicians leave the site.\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "fun/index.html",
@@ -74,7 +74,7 @@
     "href": "EMAT Signal Processing/index.html",
     "title": "EMAT Signal Processing",
     "section": "",
-    "text": "Work in Progress. Diagrams hand drawn as I don’t have access to production data.\n\nProblem Introduction\nIn inline inspection (ILI), thin cracks and other narrow features can be difficult for magnetic flux leakage (MFL) tools to detect because the magnetic flux may bridge small gaps rather than leak far enough from the pipe wall to produce a measurable signal. Technologies such as electromagnetic acoustic transducers (EMATs) are therefore used to detect and characterize these defects. As the name suggests, these tools transmit a sound wave that travels circumferentially around the wall of the pipe. When these waves reach a crack, the wave is deflected back and can be detected by receivers placed around the tool.\n\n\n\n\n\n\nFigure 1: EMAT Tool and Wave Diagram\n\n\n\n\nTransmitter Location: this overly simplified drawing shows the location of the transmitter at 12 o’clock. It is from where the sound wave is generated.\nReceiver Location: most receivers are 20 or more degrees offset from the transmitter. The signal data seen in Figure 2 would be from this location.\nDirect Transmission (DT): this is the first and typically the largest signal that the receiver will record as the wave travels clockwise around the pipe.\nWrap Around 1 (WA1): this is the the signal recorded as the wave travels counter-clockwise around the pipe. The wave attenuates or becomes weaker as it travels around the pipe, typically it is weaker than DT.\nWrap Around 2 (WA2): As the wave travels clockwise around the pipe, it will eventually return back to the receiver after traveling over 360 degrees."
+    "text": "Work in Progress. Diagrams drawn on Excalidraw as I don’t have access to production data.\n\nProblem Introduction\nIn inline inspection (ILI), thin cracks and other narrow features can be difficult for magnetic flux leakage (MFL) tools to detect because the magnetic flux may bridge small gaps rather than leak far enough from the pipe wall to produce a measurable signal. Technologies such as electromagnetic acoustic transducers (EMATs) are therefore used to detect and characterize these defects. As the name suggests, these tools transmit a sound wave that travels circumferentially around the wall of the pipe. When these waves reach a crack, the wave is deflected back and can be detected by receivers placed around the tool.\n\n\n\n\n\n\nFigure 1: EMAT Tool and Wave Diagram\n\n\n\n\nTransmitter Location: this overly simplified drawing shows the location of the transmitter at 12 o’clock. It is from where the sound wave is generated.\nReceiver Location: most receivers are 20 or more degrees offset from the transmitter. The signal data seen in Figure 2 would be from this location.\nDirect Transmission (DT): this is the first and typically the largest signal that the receiver will record as the wave travels clockwise around the pipe.\nWrap Around 1 (WA1): this is the the signal recorded as the wave travels counter-clockwise around the pipe. The wave attenuates or becomes weaker as it travels around the pipe, typically it is weaker than DT.\nWrap Around 2 (WA2): As the wave travels clockwise around the pipe, it will eventually return back to the receiver after traveling over 360 degrees."
   },
   {
     "objectID": "Healthcare Integrations/index.html",
@@ -102,6 +102,6 @@
     "href": "Pokemon Dashboard/index.html",
     "title": "Pokemon Dashboard",
     "section": "",
-    "text": "This interactive dashboard runs entirely in your browser using Shinylive. The first load may take a moment while the Python runtime starts.\nOpen the dashboard in a new tab"
+    "text": "This dashboard is not original as it has been edited with AI\nA friend came over in May 2026 and mentioned that their kid liked Pokemon and was playing the new competitive game. As someone who played competitive VGC (competitive format) back in the early 2010’s, I was excited and thought it would be fun to make a dashboard and dive into some pokemon data. Unfortunately, playing the game wasn’t quite as fun as when I was a teenager, but it did make for a fun bonding moment.\nThis interactive dashboard runs entirely in your browser using Shinylive. The first load may take a moment while the Python runtime starts.\nOpen the dashboard in a new tab"
   }
 ]

@@ -20,8 +20,10 @@ I’m a Data Scientist and Machine Learning Engineer specializing in applied mod
 
 When I’m not serving corporate overlords, you’ll usually find me playing board games, playing sports, watching movies, or traveling somewhere new. I live near Salt Lake City, Utah, with my wife and a spider who keeps finding his way back into our house.
 
-This website is clearly a work in progress. I love my job and enjoy the work that I do, so I'm not too active about working on this site. Any and all work generated or edited by AI is flagged as such.
+This website is clearly a work in progress. I love my job and enjoy the work that I do, so I'm not too active about working on this site. Any and all non codes sections are written by me, but any code or work generated or edited by AI is flagged as such.
+:::
 
+::: {.home-summary}
 ## Experience
 
 T.D. Williamson \| Data Scientist II \| June 2024 - Present
