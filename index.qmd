@@ -16,7 +16,7 @@ about:
 
 ::: {#hero-heading}
 
-Some say I'm a Data Scientist, Statistician, or Machine Learning Engineer. I say I model for a living. For the past two years, I’ve worked in the pipeline industry, building data-driven solutions that detect cracks and corrosion before they lead to catastrophic failures. In the afternoons I moonlight as course assistant for ASU in Master's level Biostatistics programming courses (LSC 540, 541). Previously, I spent three years developing DevOps workflows and software integrations for digital pathology and healthcare data systems. During two of those years, I built and trained a team of engineers before taking responsibility for managing the team and its projects.
+Some say I'm a Data Scientist, Statistician, or Machine Learning Engineer. I say I model for a living. For the past two years, I’ve worked in the pipeline industry, building data-driven solutions that detect cracks and corrosion before they lead to catastrophic failures. In the afternoons I moonlight as course assistant for ASU in Master's level Biostatistics programming courses (LSC 540, 541).
 
 When I’m not serving corporate overlords, you’ll usually find me playing board games, playing sports, watching (and quoting) movies, or traveling somewhere new.
 
