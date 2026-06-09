@@ -21,3 +21,8 @@
   margin: 2rem auto 0;
   text-align: center;
 }
+
+.home-summary h2,
+.home-summary p {
+  text-align: center;
+}
