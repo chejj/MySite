@@ -1,13 +1,5 @@
 [
   {
-    "listing": "/professional/index.html",
-    "items": [
-      "/Healthcare Integrations/index.html",
-      "/EMAT Signal Processing/index.html",
-      "/Failed Sensor Scanner/index.html"
-    ]
-  },
-  {
     "listing": "/fun/index.html",
     "items": [
       "/mario/index.html",
@@ -15,6 +7,14 @@
       "/Pokemon Dashboard/index.html",
       "/league/index.html",
       "/travel/index.html"
+    ]
+  },
+  {
+    "listing": "/professional/index.html",
+    "items": [
+      "/Healthcare Integrations/index.html",
+      "/EMAT Signal Processing/index.html",
+      "/Failed Sensor Scanner/index.html"
     ]
   }
 ]
