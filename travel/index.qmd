@@ -1,6 +1,6 @@
 ---
 title: "Travels"
-description: "A photo collection from Iceland, New York, Italy, Argentina, and other adventures."
+description: "A small collection of photos from travels across the globe."
 image: ../images/2pAa_W4gQCGbSiw8TGqTIw.jpg
 ---
 
