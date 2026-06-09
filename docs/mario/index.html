@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="A statistical look at whether Mario Party’s dice are fair and whether charging a roll changes the outcome.">
 
 <title>A Basic Exploration of Sampling with Mario Party – Jacob Anderson</title>
 <style>
@@ -72,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -144,6 +145,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Jacob Anderson</span>
     </a>
@@ -155,16 +158,12 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../mario/index.html" aria-current="page"> 
-<span class="menu-text">Mario Party</span></a>
+    <a class="nav-link" href="../professional/index.html"> 
+<span class="menu-text">Professional Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../league/index.html"> 
-<span class="menu-text">League of Legends</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../travel/index.html"> 
-<span class="menu-text">Travels</span></a>
+    <a class="nav-link" href="../fun/index.html"> 
+<span class="menu-text">For Fun</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -205,6 +204,11 @@ window.Quarto = {
 <h1 class="title">A Basic Exploration of Sampling with Mario Party</h1>
 </div>
 
+<div>
+  <div class="description">
+    A statistical look at whether Mario Party’s dice are fair and whether charging a roll changes the outcome.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -237,7 +241,7 @@ window.Quarto = {
 <p>Holding the A button does not have a statistically significant effect on roll outcomes.</p>
 </dd>
 </dl>
-<div id="3f89c6a4" class="cell" data-execution_count="1">
+<div id="f81c6db8" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -272,7 +276,7 @@ window.Quarto = {
 </section>
 <section id="are-the-dice-fair" class="level1">
 <h1>Are the Dice Fair?</h1>
-<div id="a78388cf" class="cell" data-execution_count="2">
+<div id="ce791fb4" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bin_edges <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">12</span>)</span>
@@ -305,7 +309,7 @@ H_0: \text {The dice follow a uniform distribution}
 <p><span class="math display">\[
 H_a: \text {The dice do not follow a uniform distribution}
 \]</span></p>
-<div id="5875dc12" class="cell" data-execution_count="3">
+<div id="4bb3e7b9" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n_faces <span class="op">=</span> <span class="dv">10</span></span>
@@ -336,7 +340,7 @@ H_0: \mu_{chargedDie} = \mu_{unchargedDie}
 <p><span class="math display">\[
 H_a: \mu_{chargedDie} &gt; \mu_{unchargedDie}
 \]</span></p>
-<div id="1e892630" class="cell" data-execution_count="4">
+<div id="85dfddb9" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>charged_rolls <span class="op">=</span> data[data[<span class="st">'Charged?'</span>] <span class="op">==</span> <span class="st">'Yes'</span>][<span class="st">'Number'</span>]</span>
@@ -376,7 +380,7 @@ H_a: \mu_{chargedDie} &gt; \mu_{unchargedDie}
 <section id="kolmogorov-smirnov-test" class="level3">
 <h3 class="anchored" data-anchor-id="kolmogorov-smirnov-test">Kolmogorov-Smirnov Test</h3>
 <p>The K-S Test is used here to compare the two distributions and test whether or not they come from the same underlying distribution.</p>
-<div id="631a5cce" class="cell" data-execution_count="5">
+<div id="34f4a07e" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ks_2samp</span>
@@ -403,7 +407,7 @@ P-value: 0.63</code></pre>
 <li>Store the difference</li>
 <li>Repeat Steps 1-4 n=10,000 times.</li>
 </ol>
-<div id="5767bbe2" class="cell" data-execution_count="6">
+<div id="d27370aa" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10000</span></span>

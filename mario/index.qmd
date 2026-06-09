@@ -1,5 +1,7 @@
 ---
 title: "A Basic Exploration of Sampling with Mario Party"
+description: "A statistical look at whether Mario Party's dice are fair and whether charging a roll changes the outcome."
+image: ../images/mariojamboree.png
 format:
   html:
     code-fold: true

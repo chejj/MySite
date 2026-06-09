@@ -1,5 +1,7 @@
 ---
-title: "Traveling"
+title: "Travels"
+description: "A photo collection from Iceland, New York, Italy, Argentina, and other adventures."
+image: ../images/2pAa_W4gQCGbSiw8TGqTIw.jpg
 ---
 
 "*It's a dangerous business... going out your door. You step onto the road, and if you don't keep your feet, there's no knowing where you might be swept off to.*" --J.R.R. Tolkien, The Lord of the Rings

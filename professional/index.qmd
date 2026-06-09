@@ -1,0 +1,16 @@
+---
+title: "Professional Projects"
+description: "Data science, machine learning, and analytics projects."
+listing:
+  contents:
+    - ../EMAT Signal Processing/index.qmd
+    - ../Failed Sensor Scanner/index.qmd
+    - ../Healthcare Integrations/index.qmd
+  type: grid
+  grid-columns: 3
+  fields: [image, title, description]
+  image-height: 220px
+  page-size: 12
+---
+
+Projects focused on applied data science, statistical analysis, and machine learning.

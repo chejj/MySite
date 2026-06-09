@@ -1,5 +1,7 @@
 ---
-title: "League of Legends"
+title: "Predicting League of Legends Matches"
+description: "Using early-game statistics from roughly 20,000 Diamond-ranked matches to explore whether the winning team can be predicted at 15 minutes."
+image: ../images/league-preview.png
 format:
   html:
     code-fold: true
@@ -156,7 +158,7 @@ From this plot we can see that Ace_Diff and Inhibitor_Diff very rarely have valu
 
 ```{python}
 X = X.drop(columns=['Ace_Diff', 'Inhibitor_Diff'])
-df = df.drop(columns=['Ace_Diff, Inhibitor_Diff'])
+df = df.drop(columns=['Ace_Diff', 'Inhibitor_Diff'])
 
 correlation_matrix = df.corr()
 target_correlation = correlation_matrix.iloc[1:, 0]

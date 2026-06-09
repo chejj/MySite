@@ -1,0 +1,9 @@
+---
+title: "EMAT Signal Processing"
+description: "Using signal data from Electromagnetic Acoustic Transducer receivers to detect cracks in pipelines."
+image: ../images/axial_image.svg
+format:
+  html:
+    code-fold: true
+    code-summary: "Show Code"
+---

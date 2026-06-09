@@ -1,0 +1,16 @@
+---
+title: "For Fun"
+description: "Personal projects inspired by games, travel, and curiosity."
+listing:
+  contents:
+    - ../league/index.qmd
+    - ../mario/index.qmd
+    - ../travel/index.qmd
+  type: grid
+  grid-columns: 3
+  fields: [image, title, description]
+  image-height: 220px
+  page-size: 12
+---
+
+Experiments, hobbies, and adventures I explore for the fun of it.
