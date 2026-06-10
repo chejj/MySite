@@ -156,6 +156,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="problem-introduction" class="level1">
 <h1>Problem Introduction</h1>
 <p>In inline inspection (ILI), thin cracks and other narrow features can be difficult for magnetic flux leakage (MFL) tools to detect because the magnetic flux may bridge small gaps rather than leak far enough from the pipe wall to produce a measurable signal. Technologies such as electromagnetic acoustic transducers (EMATs) are therefore used to detect and characterize these defects. As the name suggests, these tools transmit a sound wave that travels circumferentially around the wall of the pipe. When these waves reach a crack, the wave is deflected back and can be detected by receivers placed around the tool.</p>
+<p>This is the background I was given in early 2026 and asked to create a model to locate where cracks might be. This project was vital as Engineering was developing a larger diameter tool that would contain too many sensors for Analysts to feasibly sort through, even with a Batcave level setup of 12 monitors (we tried!).</p>
+<p>The first thing I did was dive into our Confluence pages to read the documentation on the work that had come before me, and reach out to my coworker who had authored the python libraries necessary for analyzing the EMAT run data.</p>
 <div id="fig-emat-axial" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-emat-axial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -173,6 +175,31 @@ Figure&nbsp;1: <strong>EMAT Tool and Wave Diagram</strong>
 <li><p>Wrap Around 1 (WA1): this is the the signal recorded as the wave travels counter-clockwise around the pipe. The wave attenuates or becomes weaker as it travels around the pipe, typically it is weaker than DT.</p></li>
 <li><p>Wrap Around 2 (WA2): As the wave travels clockwise around the pipe, it will eventually return back to the receiver after traveling over 360 degrees.</p></li>
 </ol>
+<p>Any given tool is equipped with 6 or more transmitters, and 1 to 2 receivers per transmitter that record a window of vibrations. As you can see in Figure 1, a transmitter emits a sound wave that will travel both clockwise (yellow) and counter-clockwise (blue) around the pipe.</p>
+<div id="fig-echoes" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-echoes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="..\images/echo_and_no_echo.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-echoes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: <strong>View of a Single Receiver Signal</strong>
+</figcaption>
+</figure>
+</div>
+<p>Figure 2 shows what the individual sensor data looks like if you plot it over time in R or Python. Using this data from many sensors over a period of time we can reconstruct a visualization of the pipe in 360 degrees.</p>
+<p>The sweet spot for detecting echos is between DT and WA1, as by the time the wave reaches WA1, it’s fully circumnavigated the pipe wall and it will begin to attenuate (weaken). Because we are looking for echoes, there’s effectively a blindspot (shown in Figure 3) on the opposite side of the pipe from the receiver and transmitter, where it will have taken too long for the signal to hit a crack and returned a signal.</p>
+<div id="fig-hotspot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hotspot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="..\images/Hotspot.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hotspot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: <strong>View of a Single Receiver Over Many Samples</strong>
+</figcaption>
+</figure>
+</div>
+<p>Because we do not know if an echo came from the clockwise or counter-wise direction, we plot a mirror image and super impose them. To ensure background and background noise doesn’t show up as hotspots, I standardized the data and used noise reduction and filtering so that the background would remain as quiet as possible and only real signal would appear as hotspots. to verify a crack was really a crack, and find it’s orientation, I then would take the data from multiple sensors from all angles and overlay and find where the most sensors agreed on a degree position.</p>
+<p>As EMAT is a competitive technology in ILI, I will not go into further detail.</p>
 
 
 </section>

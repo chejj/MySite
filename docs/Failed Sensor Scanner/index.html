@@ -122,6 +122,9 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#problem-introduction" id="toc-problem-introduction" class="nav-link active" data-scroll-target="#problem-introduction">Problem Introduction</a></li>
+  <li><a href="#initial-investigation" id="toc-initial-investigation" class="nav-link" data-scroll-target="#initial-investigation">Initial Investigation</a></li>
+  <li><a href="#analysis-and-solution" id="toc-analysis-and-solution" class="nav-link" data-scroll-target="#analysis-and-solution">Analysis and Solution</a></li>
+  <li><a href="#the-implementation" id="toc-the-implementation" class="nav-link" data-scroll-target="#the-implementation">The Implementation</a></li>
   </ul>
 </nav>
     </div>
@@ -152,14 +155,32 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>Work in Progress. Diagrams hand drawn as I don’t have access to production data. NOTE: remember to replace the image</em></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/In-LineInspection-Deformation-DEF.jpg" class="img-fluid figure-img"></p>
+<figcaption>Inline inspection deformation tool</figcaption>
+</figure>
+</div>
 <section id="problem-introduction" class="level1">
 <h1>Problem Introduction</h1>
 <p>To assess the health and integrity of their pipelines, operators regularly hire inspection companies to run specialized tools known as “pigs” through designated sections of pipe. These tools use various technologies and sensor arrays to detect and measure features in, on, and around the pipe wall.</p>
 <p>Occasionally, and perhaps more often than the electrical and mechanical engineers would like to admit, these tools or their sensors fail during an inspection. Field technicians may not know that a failure occurred until the tool is returned and its data is processed. By then, tens or hundreds of miles of inspection data may have been collected and distributed for analysis.</p>
 <p>Depending on the number of affected sensors, the type and duration of the failure, and the resulting loss of coverage, the inspection may be partially or entirely invalid. The pipeline may then need to be inspected again, resulting in substantial costs and delays.</p>
 <p>In 2024, I was tasked with developing a method to detect these failures on-site, shortly after the tool is removed from the pipeline. This allows technicians to assess whether an inspection is likely to pass validation before leaving the site.</p>
-<p>The solution also needed to satisfy several technical constraints. It had to run quickly because field technicians and pipeline personnel could not wait hours for results. It also had to operate on the standard Lenovo ThinkPads issued to technicians, without relying on specialized hardware or cloud computing. Finally, each inspection generated billions of sensor readings, while individual tools varied in design and number of sensors. The method therefore needed to process large datasets efficiently while adapting to different tool configurations.</p>
+</section>
+<section id="initial-investigation" class="level1">
+<h1>Initial Investigation</h1>
+<p>To get started, I reached out to several to the leader of field services and the Manager of the Data Analyst teams for a list of runs which were known to contain failed sensors. Once I had a list of ~50 runs, I went through each run to make sure that the failed sensors were marked in a consistent manner. Some were marked from beginning to end, even though it only failed part way through, and there was no difference between a sensor that failed due to electrical noise, and a sensor that flatlined.</p>
+</section>
+<section id="analysis-and-solution" class="level1">
+<h1>Analysis and Solution</h1>
+<p>Because pipelines vary widely in diameter, coating, and wall thickness, the data had to be normalized if a single model was going to work across inspections. I standardized the signals using median-based scaling and used signal processing to extract features such as signal energy, peak spacing, and related characteristics. Even that was not sufficient, since every run has its own baseline and behavior; what looks like a dead or noisy sensor on one run may be entirely normal on another. To account for this, I added features that compared each sensor’s measurements with the median sensor values at the same location.</p>
+<p>The final solution evaluated the pipe in 40-foot segments, generated features for every sensor within each segment, compared those features against the sensor with the median value for each metric, and then used an XGBoost model to predict whether a sensor had failed. To reduce false positives, a section had to be flagged as failed in five consecutive snapshots before it was treated as an actual failure. During training, I held out entire runs for testing, since individual 40-foot sections from the same run were highly correlated.</p>
+</section>
+<section id="the-implementation" class="level1">
+<h1>The Implementation</h1>
+<p>The implementation also needed to satisfy several technical constraints. It had to run quickly because field technicians and pipeline personnel could not wait hours for results. It also had to operate on the standard Lenovo ThinkPads issued to technicians, without relying on specialized hardware or cloud computing. Finally, each inspection generated billions of sensor readings, while individual tools varied in design and number of sensors. The method therefore needed to process large datasets efficiently while adapting to different tool configurations.</p>
+<p>Although I performed the initial analysis and data collection in Python, deploying the solution required porting the pipeline and model to C++ so it could integrate efficiently with our existing infrastructure. Because the model was built with XGBoost, I configured its C++ API within our CMake environment and reimplemented the preprocessing and data collection pipeline in C++. While the model runtime is a function of many variables such as sensor count, sample rate and distance, this change from Python to C++ improved runs that would take over 12 hours to under 10 minutes.</p>
 
 
 </section>

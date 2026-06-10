@@ -3,6 +3,7 @@ title: "Professional Projects"
 description: "Data science, machine learning, and analytics projects."
 listing:
   contents:
+    - ../Consulting Automated Reporting/index.qmd
     - ../EMAT Signal Processing/index.qmd
     - ../Failed Sensor Scanner/index.qmd
     - ../Healthcare Integrations/index.qmd
