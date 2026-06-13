@@ -1,6 +1,7 @@
 ---
 title: "NLP and Jeopardy"
 description: "Exploring Jeopardy clues and categories with natural language processing."
+image: ../images/jeopardy.png
 format:
   html:
     code-fold: true

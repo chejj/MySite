@@ -1,6 +1,7 @@
 ---
 title: "Pokemon Dashboard"
 description: "A serverless Shiny dashboard for exploring Pokemon stats, moves, abilities, types, and natures."
+image: ../images/pokemon.png
 toc: false
 ---
 
@@ -8,7 +9,7 @@ toc: false
 
 A friend came over in May 2026 and mentioned that their kid liked Pokemon and was playing the new competitive game. As someone who played competitive VGC (competitive format) back in the early 2010's, I was excited and thought it would be fun to make a dashboard and dive into some pokemon data. Unfortunately, playing the game wasn't quite as fun as when I was a teenager, but it did make for a fun bonding moment.
 
-This interactive dashboard runs entirely in your browser using Shinylive. The first load may take a moment while the Python runtime starts.
+This interactive dashboard runs entirely in your browser using Shinylive, meaning there is no server side to do the computations. Due to this, the first load may take a moment.
 
 [Open the dashboard in a new tab](dashboard/index.html){.btn .btn-primary target="_blank"}
 

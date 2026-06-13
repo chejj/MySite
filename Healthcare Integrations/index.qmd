@@ -1,6 +1,6 @@
 ---
 title: "Digital Pathology and Healthcare Integrations"
-description: "Building secure AWS integrations for exchanging patient data, pathology images, and diagnostic reports across healthcare systems."
+description: "Building HL7 Integrations in AWS (2021-2024)"
 image: ../images/aws_logo.png
 format:
   html:

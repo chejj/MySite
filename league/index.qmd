@@ -1,7 +1,7 @@
 ---
 title: "Predicting League of Legends Matches"
 description: "Using early-game statistics from roughly 20,000 Diamond-ranked matches to explore whether the winning team can be predicted at 15 minutes."
-image: ../images/league-preview.png
+image: ../images/league_dataset.jpg
 format:
   html:
     code-fold: true
@@ -12,15 +12,15 @@ format:
 
 # Introduction
 
-League of Legends is a MOBA (Multiplayer Online Battle Arena) where two teams (Blue and Red) of five players compete over each other's resources and neutral objectives to destroy the enemy base (Nexus). There are three lanes; Top, Middle (Mid), and Bottom (Bot), each with defensive structures (Towers or Turrets); a jungle, filled with neutral monsters that give gold, experience and some give buffs (power-ups); a River with epic neutral objectives that provide permanent buffs (Void Grubs and Dragons) and some that provide temporary boosts to your team (Elder Dragon, Baron and Rift Herald). After the 15 minute mark, teams have the option to surrender (colloquially known as "ff" for "forfeit").
+League of Legends is a MOBA (Multiplayer Online Battle Arena) where two teams (Blue and Red) of five players compete over each other's resources and neutral objectives to destroy the enemy base (Nexus). There are three lanes; Top, Middle (Mid), and Bottom (Bot), each with defensive structures (Towers or Turrets); a jungle, filled with neutral monsters that give gold, experience and some give buffs (power-ups); a River with epic neutral objectives that provide permanent buffs (Void Grubs and Dragons) and some that provide temporary boosts to your team (Elder Dragon, Baron and Rift Herald). After the 15 minute mark, teams have the option to surrender (colloquially known as "ff" for "forfeit"). Often players who are underperforming will want to surrender to save time. Can we predict which team will win so into the game?
 
 ### Data Collection
 
-This data was collected using the Riot Games API using two different calls. First I needed to collect a list of diamond players, which was done using the /lol/league/v4/entries/{queue}/{tier}/{division} endpoint. From the players collected I used their puuid's to ping /lol/match/v5/matches/{matchId}/timeline. This returns a minute by minute recap of the game, and I stored the data of the first 15 minutes of each game in a PostgreSQL table.
+This data was collected using the Riot Games API using two different calls. First I needed to collect a list of diamond players, which was done using the /lol/league/v4/entries/{queue}/{tier}/{division} endpoint. From the players collected I used their puuid's to ping /lol/match/v5/matches/{matchId}/timeline. This returns a minute by minute recap of the game in JSON format. I then cleaned the JSONs and then saved the data of the first 15 minutes of each game in a PostgreSQL table.
 
 ### Content
 
-This dataset contains game metrics of the first 15 minutes of a match--games usually last between 25-35 minutes, but can surpass an hour. The data collected represents approximately 20,000 games of ranked solo queue (players can only queue up for a game with maximum one other person) from *current* Diamond Players (n.b. Patch 14.6, all games are from between March 20th and March 31st). The target value is blue_Wins (1 represents a Blue Team Victory, 0 represents a Red Team Victory)
+This dataset contains game metrics of the first 15 minutes of a match--games usually last between 25-35 minutes, but can surpass an hour. The data collected represents approximately 20,000 games of ranked solo queue (players can only queue up for a game with maximum one other person) from *2024* Diamond Players (n.b. Patch 14.6, all games are from between March 20th and March 31st, 2024). The target value is blue_Wins (1 represents a Blue Team Victory, 0 represents a Red Team Victory)
 
 Each game is unique and there should be no missing values, *match_id* can be used to GET more data from the Riot Games API.
 
@@ -154,8 +154,6 @@ plt.show()
 
 From this plot we can see that Ace_Diff and Inhibitor_Diff very rarely have values other than 0, so we can drop them as they provide little to no value to our training.
 
-### JAKE FIX X and df and suchso that it makes sense
-
 ```{python}
 X = X.drop(columns=['Ace_Diff', 'Inhibitor_Diff'])
 df = df.drop(columns=['Ace_Diff', 'Inhibitor_Diff'])
@@ -165,7 +163,7 @@ target_correlation = correlation_matrix.iloc[1:, 0]
 target_correlation = target_correlation.to_frame(name=correlation_matrix.columns[0])
 target_correlation = target_correlation.sort_values(by=target_correlation.columns[0], ascending=False)
 
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(8,6))
 sns.heatmap(target_correlation, cmap="rocket", annot=True, fmt='.3f')
 
 plt.title("Heatmap of Correlation Between Predictor Variables and 'blue_Win'")
@@ -179,7 +177,7 @@ top_features = target_correlation.head(8).index.tolist()
 df_top = df[top_features]
 top_corr_matrix = df_top.corr()
 
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(8,6))
 sns.heatmap(top_corr_matrix, cmap="rocket", annot=True, fmt='.2f')
 
 plt.title("Correlation Between Top 8 Features")
@@ -206,6 +204,7 @@ Gold_Diff has a VIF of 32.67 so we'll remove it for the Logistic Regression data
 
 ```{python}
 X = df.drop(columns=['blue_Win', 'Gold_Diff'])
+y = df['blue_Win']
 
 vif_data = pd.DataFrame()
 vif_data["feature"] = X.columns
@@ -219,28 +218,72 @@ All VIF's are now below 10 so no further features will be removed. VIF tells how
 ### Logistic Regression
 
 ```{python}
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=1, stratify=y
+)
 
-# scaler = StandardScaler()
-# X_train_scaled = scaler.fit_transform(X_train)
-# X_test_scaled = scaler.transform(X_test)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
-# logistic_reg = LogisticRegression(penalty='l2')
-# logistic_reg.fit(X_train_scaled, y_train)
+baseline_logistic = LogisticRegression(penalty='l2', max_iter=5000)
+baseline_logistic.fit(X_train_scaled, y_train)
 
-# y_pred = logistic_reg.predict(X_test_scaled)
-# accuracy = accuracy_score(y_test, y_pred)
-# print(accuracy)
+baseline_pred = baseline_logistic.predict(X_test_scaled)
+baseline_prob = baseline_logistic.predict_proba(X_test_scaled)[:, 1]
+
+print("Baseline accuracy:", accuracy_score(y_test, baseline_pred))
+print("Baseline ROC AUC:", roc_auc_score(y_test, baseline_prob))
+```
+
+The baseline Logistic Regression already uses L2 regularization, but the default penalty strength may not be optimal. To check whether stronger or weaker regularization improves the model, we can tune the regularization strength and compare L1, L2, and Elastic Net penalties with 5-fold cross-validation.
+
+```{python}
+from sklearn.pipeline import Pipeline
+
+logistic_pipeline = Pipeline([
+    ("scaler", StandardScaler()),
+    ("logistic", LogisticRegression(solver='saga', max_iter=5000))
+])
+
+param_grid = [
+    {
+        "logistic__penalty": ['l1'],
+        "logistic__C": [0.001, 0.01, 0.1, 1, 10, 100]
+    },
+    {
+        "logistic__penalty": ['l2'],
+        "logistic__C": [0.001, 0.01, 0.1, 1, 10, 100]
+    },
+    {
+        "logistic__penalty": ['elasticnet'],
+        "logistic__C": [0.001, 0.01, 0.1, 1, 10],
+        "logistic__l1_ratio": [0.2, 0.5, 0.8]
+    }
+]
+
+grid_search = GridSearchCV(
+    logistic_pipeline,
+    param_grid=param_grid,
+    cv=5,
+    scoring='roc_auc',
+    n_jobs=1
+)
+
+grid_search.fit(X_train, y_train)
+
+print("Best parameters:", grid_search.best_params_)
+print("Best cross-validated ROC AUC:", grid_search.best_score_)
 ```
 
 ```{python}
-# coefficients = logistic_reg.coef_[0]
-# feature_names = X.columns
+best_logistic = grid_search.best_estimator_
+regularized_pred = best_logistic.predict(X_test)
+regularized_prob = best_logistic.predict_proba(X_test)[:, 1]
 
-# plt.figure(figsize=(10, 8))
-# plt.barh(feature_names, coefficients)
-# plt.xlabel('Coefficient Value')
-# plt.ylabel('Feature')
-# plt.title('Logistic Regression Coefficients')
-# plt.show()
+print("Regularized accuracy:", accuracy_score(y_test, regularized_pred))
+print("Regularized ROC AUC:", roc_auc_score(y_test, regularized_prob))
+print(classification_report(y_test, regularized_pred))
 ```
+
+After our grid search with 5-fold cross-validation, we generated a model using Elastic Net with C = 0.01 and l1_ratio = 0.2 suggesting that mild additional regularization may help during cross-validation. However, performance on the held-out test set was nearly identical to the baseline L2 logistic regression with AUC of ~.85 and accuracy of .76 in both cases.

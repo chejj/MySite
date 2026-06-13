@@ -198,7 +198,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#simplifying-the-dataset" id="toc-simplifying-the-dataset" class="nav-link" data-scroll-target="#simplifying-the-dataset">Simplifying the Dataset</a></li>
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
-  <li><a href="#jake-fix-x-and-df-and-suchso-that-it-makes-sense" id="toc-jake-fix-x-and-df-and-suchso-that-it-makes-sense" class="nav-link" data-scroll-target="#jake-fix-x-and-df-and-suchso-that-it-makes-sense">JAKE FIX X and df and suchso that it makes sense</a></li>
   <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic Regression</a></li>
   </ul></li>
   </ul>
@@ -234,14 +233,14 @@ window.Quarto = {
 <p><em>Incomplete, please go <a href="https://www.kaggle.com/datasets/jakejoeanderson/league-of-legends-diamond-matches-ff15">here</a> to see more of this project.</em></p>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>League of Legends is a MOBA (Multiplayer Online Battle Arena) where two teams (Blue and Red) of five players compete over each other’s resources and neutral objectives to destroy the enemy base (Nexus). There are three lanes; Top, Middle (Mid), and Bottom (Bot), each with defensive structures (Towers or Turrets); a jungle, filled with neutral monsters that give gold, experience and some give buffs (power-ups); a River with epic neutral objectives that provide permanent buffs (Void Grubs and Dragons) and some that provide temporary boosts to your team (Elder Dragon, Baron and Rift Herald). After the 15 minute mark, teams have the option to surrender (colloquially known as “ff” for “forfeit”).</p>
+<p>League of Legends is a MOBA (Multiplayer Online Battle Arena) where two teams (Blue and Red) of five players compete over each other’s resources and neutral objectives to destroy the enemy base (Nexus). There are three lanes; Top, Middle (Mid), and Bottom (Bot), each with defensive structures (Towers or Turrets); a jungle, filled with neutral monsters that give gold, experience and some give buffs (power-ups); a River with epic neutral objectives that provide permanent buffs (Void Grubs and Dragons) and some that provide temporary boosts to your team (Elder Dragon, Baron and Rift Herald). After the 15 minute mark, teams have the option to surrender (colloquially known as “ff” for “forfeit”). Often players who are underperforming will want to surrender to save time. Can we predict which team will win so into the game?</p>
 <section id="data-collection" class="level3">
 <h3 class="anchored" data-anchor-id="data-collection">Data Collection</h3>
-<p>This data was collected using the Riot Games API using two different calls. First I needed to collect a list of diamond players, which was done using the /lol/league/v4/entries/{queue}/{tier}/{division} endpoint. From the players collected I used their puuid’s to ping /lol/match/v5/matches/{matchId}/timeline. This returns a minute by minute recap of the game, and I stored the data of the first 15 minutes of each game in a PostgreSQL table.</p>
+<p>This data was collected using the Riot Games API using two different calls. First I needed to collect a list of diamond players, which was done using the /lol/league/v4/entries/{queue}/{tier}/{division} endpoint. From the players collected I used their puuid’s to ping /lol/match/v5/matches/{matchId}/timeline. This returns a minute by minute recap of the game in JSON format. I then cleaned the JSONs and then saved the data of the first 15 minutes of each game in a PostgreSQL table.</p>
 </section>
 <section id="content" class="level3">
 <h3 class="anchored" data-anchor-id="content">Content</h3>
-<p>This dataset contains game metrics of the first 15 minutes of a match–games usually last between 25-35 minutes, but can surpass an hour. The data collected represents approximately 20,000 games of ranked solo queue (players can only queue up for a game with maximum one other person) from <em>current</em> Diamond Players (n.b.&nbsp;Patch 14.6, all games are from between March 20th and March 31st). The target value is blue_Wins (1 represents a Blue Team Victory, 0 represents a Red Team Victory)</p>
+<p>This dataset contains game metrics of the first 15 minutes of a match–games usually last between 25-35 minutes, but can surpass an hour. The data collected represents approximately 20,000 games of ranked solo queue (players can only queue up for a game with maximum one other person) from <em>2024</em> Diamond Players (n.b.&nbsp;Patch 14.6, all games are from between March 20th and March 31st, 2024). The target value is blue_Wins (1 represents a Blue Team Victory, 0 represents a Red Team Victory)</p>
 <p>Each game is unique and there should be no missing values, <em>match_id</em> can be used to GET more data from the Riot Games API.</p>
 </section>
 <section id="glossary" class="level3">
@@ -270,7 +269,7 @@ window.Quarto = {
 </section>
 <section id="can-you-predict-the-winning-team-at-15-minutes" class="level1">
 <h1>Can you Predict the Winning Team at 15 Minutes?</h1>
-<div id="d566b345" class="cell" data-execution_count="1">
+<div id="c3b982f5" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -451,7 +450,7 @@ window.Quarto = {
 <section id="simplifying-the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="simplifying-the-dataset">Simplifying the Dataset</h3>
 <p>Rather than train a model on win/loss with blue vs red features, we are calculating differences between blues score and red score for each feature so that the model will learn from relative advantages rather than individual teams’ values. Positive values will indicate that the blue team has a higher score for that metric, and negative will indicate that the blue team has a lower score.</p>
-<div id="5b5629d5" class="cell" data-execution_count="2">
+<div id="077dc16f" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>columns_to_keep <span class="op">=</span> [<span class="st">'blue_Win'</span>, <span class="st">'blue_Wards'</span>, <span class="st">'blue_Wards_Destroyed'</span>, <span class="st">'blue_First_Blood'</span>,</span>
@@ -494,7 +493,7 @@ window.Quarto = {
 </section>
 <section id="exploratory-data-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h3>
-<div id="f90c4f93" class="cell" data-execution_count="3">
+<div id="80756be4" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'blue_Win'</span>])</span>
@@ -530,10 +529,7 @@ window.Quarto = {
 </div>
 </div>
 <p>From this plot we can see that Ace_Diff and Inhibitor_Diff very rarely have values other than 0, so we can drop them as they provide little to no value to our training.</p>
-</section>
-<section id="jake-fix-x-and-df-and-suchso-that-it-makes-sense" class="level3">
-<h3 class="anchored" data-anchor-id="jake-fix-x-and-df-and-suchso-that-it-makes-sense">JAKE FIX X and df and suchso that it makes sense</h3>
-<div id="e57e6ecc" class="cell" data-execution_count="4">
+<div id="a94f72a1" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.drop(columns<span class="op">=</span>[<span class="st">'Ace_Diff'</span>, <span class="st">'Inhibitor_Diff'</span>])</span>
@@ -544,7 +540,7 @@ window.Quarto = {
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>target_correlation <span class="op">=</span> target_correlation.to_frame(name<span class="op">=</span>correlation_matrix.columns[<span class="dv">0</span>])</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>target_correlation <span class="op">=</span> target_correlation.sort_values(by<span class="op">=</span>target_correlation.columns[<span class="dv">0</span>], ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>sns.heatmap(target_correlation, cmap<span class="op">=</span><span class="st">"rocket"</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'.3f'</span>)</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Heatmap of Correlation Between Predictor Variables and 'blue_Win'"</span>)</span>
@@ -553,20 +549,20 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-5-output-1.png" width="972" height="673" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-5-output-1.png" width="861" height="525" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>From the heat map we can see the features with the highest correlation with ‘blue_Win’ are Gold_Diff, XP_Diff, Kill_Diff, all with a Pearson correlation coefficient (<em>r</em>) between 0.544 and 0.576, indicating some mild positive correlation.</p>
-<div id="0f20ca10" class="cell" data-execution_count="5">
+<div id="f0c9d744" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>top_features <span class="op">=</span> target_correlation.head(<span class="dv">8</span>).index.tolist()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_top <span class="op">=</span> df[top_features]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>top_corr_matrix <span class="op">=</span> df_top.corr()</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sns.heatmap(top_corr_matrix, cmap<span class="op">=</span><span class="st">"rocket"</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'.2f'</span>)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Between Top 8 Features"</span>)</span>
@@ -575,13 +571,13 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-6-output-1.png" width="972" height="880" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-6-output-1.png" width="838" height="732" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Upon checking for multicollinearity we can see that Gold Diff has a very strong correlation with several other variables, we can check the variance inflation factor for our features and review whether to keep “Gold_Diff” (Removing if VIF (Variable Inflation Factor &gt;= 10).</p>
-<div id="b6218162" class="cell" data-execution_count="6">
+<div id="33853451" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
@@ -616,16 +612,17 @@ window.Quarto = {
 </div>
 </div>
 <p>Gold_Diff has a VIF of 32.67 so we’ll remove it for the Logistic Regression dataset and review how its removal affects the VIF of the other features.</p>
-<div id="099e73fe" class="cell" data-execution_count="7">
+<div id="d05fa4b9" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'blue_Win'</span>, <span class="st">'Gold_Diff'</span>])</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"feature"</span>] <span class="op">=</span> X.columns</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X.shape[<span class="dv">1</span>])]</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data.sort_values(by<span class="op">=</span><span class="st">"VIF"</span>, ascending<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'blue_Win'</span>]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"feature"</span>] <span class="op">=</span> X.columns</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X.shape[<span class="dv">1</span>])]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data.sort_values(by<span class="op">=</span><span class="st">"VIF"</span>, ascending<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  feature       VIF
@@ -649,37 +646,102 @@ window.Quarto = {
 </section>
 <section id="logistic-regression" class="level3">
 <h3 class="anchored" data-anchor-id="logistic-regression">Logistic Regression</h3>
-<div id="66c8d3c1" class="cell" data-execution_count="8">
+<div id="1dd04283" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># scaler = StandardScaler()</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># X_train_scaled = scaler.fit_transform(X_train)</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># X_test_scaled = scaler.transform(X_test)</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic_reg = LogisticRegression(penalty='l2')</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic_reg.fit(X_train_scaled, y_train)</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># y_pred = logistic_reg.predict(X_test_scaled)</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># accuracy = accuracy_score(y_test, y_pred)</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># print(accuracy)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">1</span>, stratify<span class="op">=</span>y</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>baseline_logistic <span class="op">=</span> LogisticRegression(penalty<span class="op">=</span><span class="st">'l2'</span>, max_iter<span class="op">=</span><span class="dv">5000</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>baseline_logistic.fit(X_train_scaled, y_train)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>baseline_pred <span class="op">=</span> baseline_logistic.predict(X_test_scaled)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>baseline_prob <span class="op">=</span> baseline_logistic.predict_proba(X_test_scaled)[:, <span class="dv">1</span>]</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Baseline accuracy:"</span>, accuracy_score(y_test, baseline_pred))</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Baseline ROC AUC:"</span>, roc_auc_score(y_test, baseline_prob))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Baseline accuracy: 0.7610969091331629
+Baseline ROC AUC: 0.8492581010047242</code></pre>
 </div>
-<div id="96a67e89" class="cell" data-execution_count="9">
+</div>
+<p>The baseline Logistic Regression already uses L2 regularization, but the default penalty strength may not be optimal. To check whether stronger or weaker regularization improves the model, we can tune the regularization strength and compare L1, L2, and Elastic Net penalties with 5-fold cross-validation.</p>
+<div id="87c9fb8d" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># coefficients = logistic_reg.coef_[0]</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># feature_names = X.columns</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.figure(figsize=(10, 8))</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.barh(feature_names, coefficients)</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.xlabel('Coefficient Value')</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.ylabel('Feature')</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.title('Logistic Regression Coefficients')</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.show()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>logistic_pipeline <span class="op">=</span> Pipeline([</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scaler"</span>, StandardScaler()),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"logistic"</span>, LogisticRegression(solver<span class="op">=</span><span class="st">'saga'</span>, max_iter<span class="op">=</span><span class="dv">5000</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> [</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"logistic__penalty"</span>: [<span class="st">'l1'</span>],</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"logistic__C"</span>: [<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>]</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"logistic__penalty"</span>: [<span class="st">'l2'</span>],</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"logistic__C"</span>: [<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>]</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"logistic__penalty"</span>: [<span class="st">'elasticnet'</span>],</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"logistic__C"</span>: [<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>],</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"logistic__l1_ratio"</span>: [<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span>]</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    logistic_pipeline,</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    param_grid<span class="op">=</span>param_grid,</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">'roc_auc'</span>,</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    n_jobs<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best parameters:"</span>, grid_search.best_params_)</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best cross-validated ROC AUC:"</span>, grid_search.best_score_)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best parameters: {'logistic__C': 0.01, 'logistic__l1_ratio': 0.2, 'logistic__penalty': 'elasticnet'}
+Best cross-validated ROC AUC: 0.8546027312304298</code></pre>
 </div>
+</div>
+<div id="5ac65a2c" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Show Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>best_logistic <span class="op">=</span> grid_search.best_estimator_</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>regularized_pred <span class="op">=</span> best_logistic.predict(X_test)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>regularized_prob <span class="op">=</span> best_logistic.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Regularized accuracy:"</span>, accuracy_score(y_test, regularized_pred))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Regularized ROC AUC:"</span>, roc_auc_score(y_test, regularized_prob))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, regularized_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Regularized accuracy: 0.7613293051359517
+Regularized ROC AUC: 0.8492243999263761
+              precision    recall  f1-score   support
+
+         0.0       0.76      0.77      0.76      2147
+         1.0       0.77      0.75      0.76      2156
+
+    accuracy                           0.76      4303
+   macro avg       0.76      0.76      0.76      4303
+weighted avg       0.76      0.76      0.76      4303
+</code></pre>
+</div>
+</div>
+<p>After our grid search with 5-fold cross-validation, we generated a model using Elastic Net with C = 0.01 and l1_ratio = 0.2 suggesting that mild additional regularization may help during cross-validation. However, performance on the held-out test set was nearly identical to the baseline L2 logistic regression with AUC of ~.85 and accuracy of .76 in both cases.</p>
 
 
 </section>
