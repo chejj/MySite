@@ -148,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 
 <p>In March 2026, I was brought in as a consultant for an environmental agency responsible for hazardous-material safety reporting across warehouse facilities. Their team relied on spreadsheet exports that had to be manually reviewed, reorganized, and reformatted into standardized inventory reports, which made the process slow and error-prone.</p>
 <p>I built a Python reporting tool that reads the source Excel workbook, extracts the required information from the sheet, groups chemicals by room, and generates a formatted PDF report. The script uses <code>openpyxl</code> to ingest the workbook and <code>reportlab</code> to build the final document, including room-level inventory tables, hazard classifications, quantity summaries by use category, unit handling, pounds conversions, and multi-page pagination logic for longer sections.</p>
-<p>Because not every employee is technically inclined, I wrapped the workflow in a lightweight desktop gui made with Qt6 so staff could select an input workbook through a file explorer and export a finished report without touching a command line.</p>
+<p>Because not every employee is technologically inclined, I wrapped the workflow in a lightweight desktop gui made with Qt6 so staff could select an input workbook through a file explorer and export a finished report without touching a command line.</p>
 <div id="fig-echoes" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-echoes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">

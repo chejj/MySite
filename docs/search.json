@@ -53,7 +53,7 @@
     "href": "Consulting Automated Reporting/index.html",
     "title": "Consulting: Automated reporting for Environmental Agency",
     "section": "",
-    "text": "In March 2026, I was brought in as a consultant for an environmental agency responsible for hazardous-material safety reporting across warehouse facilities. Their team relied on spreadsheet exports that had to be manually reviewed, reorganized, and reformatted into standardized inventory reports, which made the process slow and error-prone.\nI built a Python reporting tool that reads the source Excel workbook, extracts the required information from the sheet, groups chemicals by room, and generates a formatted PDF report. The script uses openpyxl to ingest the workbook and reportlab to build the final document, including room-level inventory tables, hazard classifications, quantity summaries by use category, unit handling, pounds conversions, and multi-page pagination logic for longer sections.\nBecause not every employee is technically inclined, I wrapped the workflow in a lightweight desktop gui made with Qt6 so staff could select an input workbook through a file explorer and export a finished report without touching a command line.\n\n\n\n\n\n\nFigure 1: Example Page"
+    "text": "In March 2026, I was brought in as a consultant for an environmental agency responsible for hazardous-material safety reporting across warehouse facilities. Their team relied on spreadsheet exports that had to be manually reviewed, reorganized, and reformatted into standardized inventory reports, which made the process slow and error-prone.\nI built a Python reporting tool that reads the source Excel workbook, extracts the required information from the sheet, groups chemicals by room, and generates a formatted PDF report. The script uses openpyxl to ingest the workbook and reportlab to build the final document, including room-level inventory tables, hazard classifications, quantity summaries by use category, unit handling, pounds conversions, and multi-page pagination logic for longer sections.\nBecause not every employee is technologically inclined, I wrapped the workflow in a lightweight desktop gui made with Qt6 so staff could select an input workbook through a file explorer and export a finished report without touching a command line.\n\n\n\n\n\n\nFigure 1: Example Page"
   },
   {
     "objectID": "EMAT Signal Processing/index.html",
@@ -67,7 +67,7 @@
     "href": "fun/index.html",
     "title": "For Fun",
     "section": "",
-    "text": "Experiments, hobbies, and adventures I explore for the fun of it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Basic Exploration of Sampling with Mario Party\n\n\nA statistical look at whether Mario Party’s dice are fair and whether charging a roll changes the outcome.\n\n\n\n\n\n\n\n\n\n\n\n\nNLP and Jeopardy\n\n\nExploring Jeopardy clues and categories with natural language processing.\n\n\n\n\n\n\n\n\n\n\n\n\nPokemon Dashboard\n\n\nA serverless Shiny dashboard for exploring Pokemon stats, moves, abilities, types, and natures.\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting League of Legends Matches\n\n\nUsing early-game statistics from roughly 20,000 Diamond-ranked matches to explore whether the winning team can be predicted at 15 minutes.\n\n\n\n\n\n\n\n\n\n\n\n\nTravels\n\n\nA small collection of photos from travels across the globe.\n\n\n\n\n\nNo matching items"
+    "text": "Experiments, hobbies, and adventures I explore for the fun of it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA Basic Exploration of Sampling with Mario Party\n\n\nA statistical look at whether Mario Party’s dice are fair and whether charging a roll changes the outcome.\n\n\n\n\n\n\n\n\n\n\n\n\nNLP and Jeopardy\n\n\nExploring Jeopardy clues and categories with natural language processing.\n\n\n\n\n\n\n\n\n\n\n\n\nPokemon Dashboard\n\n\nA serverless Shiny dashboard for exploring Pokemon stats, moves, abilities, types, and natures.\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting League of Legends Matches\n\n\nUsing early-game statistics from roughly 20,000 Diamond-ranked matches to explore whether the winning team can be predicted at 15 minutes.\n\n\n\n\n\n\n\n\n\n\n\n\nSettlers of Catan Pip Calculator\n\n\nA browser-based board editor that scores every Catan settlement vertex by total pips.\n\n\n\n\n\n\n\n\n\n\n\n\nTravels\n\n\nA small collection of photos from travels across the globe.\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -110,5 +110,12 @@
     "title": "Professional Projects",
     "section": "",
     "text": "Projects focused on applied data science, statistical analysis, and machine learning.\n\n\n\n\n\n\n\n\n\n\n\n\nConsulting: Automated reporting for Environmental Agency\n\n\nConsulting work focused on automating reporting workflows for an environmental agency.\n\n\n\n\n\n\n\n\n\n\n\n\nDigital Pathology and Healthcare Integrations\n\n\nBuilding HL7 Integrations in AWS (2021-2024)\n\n\n\n\n\n\n\n\n\n\n\n\nEMAT Signal Processing\n\n\nUsing signal data from Electromagnetic Acoustic Transducer receivers to detect cracks in pipelines.\n\n\n\n\n\n\n\n\n\n\nOn-Site Sensor Failure Detection\n\n\nDetecting failed pipeline inspection sensors across billions of readings on standard field laptops before technicians leave the site.\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "Settlers of Catan/index.html",
+    "href": "Settlers of Catan/index.html",
+    "title": "Settlers of Catan Pip Calculator",
+    "section": "",
+    "text": "I wanted a lightweight way to sketch a Settlers of Catan board and immediately see which settlement spots are strongest by raw pip count. This first draft runs entirely in the browser with Shinylive, so there is no server behind it.\nYou can edit the 19 hexes, paste a JSON board state, and compare every vertex based on the adjacent number tokens.\nOpen the dashboard in a new tab"
   }
 ]

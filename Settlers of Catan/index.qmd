@@ -1,0 +1,21 @@
+---
+title: "Settlers of Catan Pip Calculator"
+description: "A browser-based board editor that scores every Catan settlement vertex by total pips."
+image: ../images/catan.png
+toc: false
+---
+
+I wanted a lightweight way to sketch a `Settlers of Catan` board and immediately see which settlement spots are strongest by raw pip count. This first draft runs entirely in the browser with Shinylive, so there is no server behind it.
+
+You can edit the 19 hexes, paste a JSON board state, and compare every vertex based on the adjacent number tokens.
+
+[Open the dashboard in a new tab](dashboard/index.html){.btn .btn-primary target="_blank"}
+
+<iframe
+  src="dashboard/index.html"
+  title="Settlers of Catan Pip Calculator"
+  width="100%"
+  height="1400"
+  style="border: 1px solid #dee2e6; border-radius: 0.75rem;"
+  loading="lazy"
+></iframe>
